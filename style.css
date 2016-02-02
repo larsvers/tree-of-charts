@@ -1,0 +1,392 @@
+/* dataindex css | v.7.0.4 | 1/7/15 | lv */
+/* width of svg adjusted (to get the container as wide as possible w/o x-scrollbars) */
+
+
+/*
+
+color palettes reduced: http://coolors.co/fcb97d-edd892-c6b89e-b5b8a3-aaba9e
+
+- new -
+
+structure:
+
+background #fffdff
+color: #555
+header #999 
+borders #bbb 
+
+search:
+
+search font #555
+search buttons active background #eaeaea
+search buttons active font #555
+search buttons non-active background #f7f7f7
+search buttons non-active font #bbb
+
+placeholder:
+
+font-color and arrows first #bbb
+font-color and arrows later #bbb, opacity .5
+img #bbb
+
+report cards:
+
+background #f7f7f7 & #fff (alternating)
+header and p #555
+border-bottom #bbb
+link non-hover: steelblue
+link hover: lightsteelblue
+
+tag-boxes background #AFA79E (brown-grey)
+tag font-color #fff
+
+button background #A4BD9E (matt green)
+button font-color #fff
+
+tree:
+
+font #333
+links #ddd
+
+circles stroke #999 
+circles open fill #fff
+circles closed fill #ccc
+
+circles found stroke #437F3F (dark green)
+circles found fill #437F3F (dark green)
+
+report name found hover font #aaa
+
+structure button font-color #fff
+structure button active background #A4BD9E
+structure button active background #A4BD9E, opacity .7
+
+
+*/
+
+
+/* box-sizing, body ----------------------------------------------------------------------- */
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+
+body {
+	font-family: 'Ubuntu', 'Lucida Grande', sans-serif;
+/*	font-family: 'Nunito', 'Lucida Grande', sans-serif;*/
+	font-size: 11px;		
+	color: #555;
+	background-color: #fffdff;
+}
+
+
+/* container ------------------------------------------------------------------------------ */
+
+div#container {
+	position: absolute;
+	margin-top: 1%;
+	margin-left: 0; /* together with width key to not have a horizontal scrollbar (overflow: hidden won't work with #header) */
+	width: 99vw;
+	height:94vh;
+	border-top: 2px solid #bbb;
+
+/*	border: 1px solid #ccc;*/
+	
+}
+
+div#header {
+	margin-top: -2%;
+}
+
+div#header p {
+	display: table;
+	margin: auto;
+	margin-top: .8%;
+	padding: 0 1em;
+	font-size: 1.5vw;
+	color: #999;
+	background-color: #FFFFFD;
+
+/*	border: 1px solid #ccc;*/
+}
+
+div#containerSearchCards {
+	margin-top: 3%;
+	width: 45%;
+	height: 87vh; /* viewport height - read http://snook.ca/archives/html_and_css/vm-vh-units */
+	float: left;
+
+/*	border: 1px solid blue;*/
+}
+
+div#containerTree {
+	margin-top: 3%;
+	width: 50%;
+	height: 87vh; /* viewport height - read http://snook.ca/archives/html_and_css/vm-vh-units */
+	float: right;
+
+/*	border-left: 1px solid #bbb;*/
+}
+
+/* not used yet */
+div#tooltip {
+  position: absolute;
+/*	display: inline-block;*/
+	display: none;
+	padding: 5px;    
+  background: #fff;
+  font: bold 10px 'Ubuntu', sans-serif;
+	border: 1px solid #999;
+	border-radius: 2px;
+	text-align: center;
+  pointer-events: none;      
+}
+
+
+/* search --------------------------------------------------------------------------------- */
+
+div#search {
+/*	border: 1px solid grey;*/
+	}
+
+select#select {
+	width: 80%;
+	display: inline-block;
+}
+
+span.select2-container {
+	vertical-align: top;
+}
+
+button#refresh {
+	width: 80%;
+	height: 13px;
+	padding: 0;
+	outline: none;
+	border: none;
+	border-radius: 1px;
+	background: #f7f7f7;
+	color: #999;
+	font-family: 'Ubuntu', 'Lucida Grande', sans-serif;
+	font-size: 1em;
+	cursor: pointer;
+}
+
+div#selectMethod {
+	display: inline-block;
+	width: 18%;
+}
+
+
+button.method {
+	width: 90%;
+	display: block; /*center horizontally*/
+	margin: 2px auto; /*center horizontally*/
+	padding: 1px 0px;
+	
+	outline: none;
+	border: none;
+	border-radius: 1px;
+	background: #fffdff;
+	color: #bbb;
+	text-align: left;
+	font-family: 'Ubuntu', 'Lucida Grande', sans-serif;
+	font-size: .7vw;
+	cursor: pointer;
+}
+
+
+/* report-cards --------------------------------------------------------------------------- */
+
+div#cards {
+	margin-top: 5%;
+	width: 100%;
+	height: 85%;
+
+/*	border: 1px solid red;*/
+}
+
+
+div#noteSearch {
+	margin-top: 8%;
+	display: none;
+/*	border:1px solid red;*/
+}
+
+div#noteBrowse {
+	margin-top: 1%;
+	display: none;
+/*	border:1px solid red;*/
+}
+
+div#noteSearch img {
+	margin-left: 5%;
+	display: inline-block;
+	width: 8%;
+}
+
+div#noteSearch p {
+/*	margin-left: -1.3em;*/
+	margin-left: -.5em;
+	margin-top: 0;
+	margin-right: 0;
+	margin-bottom: 0;
+	font-size: 4em;
+	font-size: 2.8vw; /* responsive font-size (with fallback above), vw = viewport width */
+	color: #bbb;
+	display: inline-block;
+}
+
+div#noteBrowse p {
+	font-size: 4em;
+	font-size: 2.8vw; /* responsive font-size (with fallback above), vw = viewport width */
+	color: #bbb;
+	margin-left: 2.5em;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+div#noteBrowse img {
+	display: inline-block	;
+	vertical-align: middle;
+	width: 28%;
+}
+
+
+div.report {
+	padding-left: 10px;
+	padding-bottom: 10px;
+
+	border-bottom: 1px solid #bbb;
+}
+
+
+h1.header1,
+h3.header2,
+p.description,
+p.moreInfoText  {
+	color: #555;
+}
+
+h1.header1 {
+/*	width: 70%; in order to not conflict with buttons */
+	padding: 1em 0em .25em 0em;
+	font-size: 1.5em;
+}
+
+h3.header2 {
+	margin: .5em 0em;
+	font-size: 1em;
+}
+
+p.description {
+	line-height: 150%;
+	margin-right: 5%;
+}
+
+ul.taglist,
+ul.buttonlist {
+	list-style-type: none;
+	padding-left: 0px;
+}
+
+li.reportTags,
+li.buttonTags {
+	display: inline-block;
+	margin: 2px;
+	padding: 2px 5px;
+	border-radius: .25em;
+	background-color: #AEA79F;
+	color: #fff;
+}
+
+li.buttonTags {
+	background-color: #A4BD9E;
+	cursor: pointer;
+}
+
+li.buttonTags:hover {
+	opacity: .8;
+}
+
+
+p.moreInfoText {
+	display: none;
+}
+
+a {
+	text-decoration: none;
+	color: steelblue;
+	transition: color .25s ease;
+}
+
+a:hover {
+	color: lightsteelblue;
+}
+
+
+/* tree ----------------------------------------------------------------------------------- */
+
+
+button.setTreeStructure {
+	float: right; /*position*/
+	margin-top: 1em; /*position*/
+	margin-right: .5em; /*position*/
+	
+	outline: none;
+	border: none;
+	border-radius: 1px;
+	background: #AABA9E;
+	color: #fff;
+	font-family: 'Ubuntu', 'Lucida Grande', sans-serif;
+	cursor: pointer;
+}
+
+svg#svg {
+}
+
+.node {
+  cursor: pointer;
+}
+
+.node circle {
+  fill: #fff;
+  stroke: #999;
+  stroke-width: 1.5px;
+}
+
+.node text {
+  font: 10px 'Ubuntu' sans-serif;
+	fill: #333;
+}
+
+.link {
+  fill: none;
+  stroke: #ddd;
+  stroke-width: 1.5px;
+}
+
+.found {
+  fill: #437F3F;
+  stroke: #437F3F
+}
+
+.reportNode {
+	fill: #555;
+	transition: fill .25s ease;
+} 
+
+.reportNode:hover {
+	fill: #aaa;
+}
+
+
+
+
+
+

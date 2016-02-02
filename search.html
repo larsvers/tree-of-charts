@@ -1,0 +1,85 @@
+<!-- dataindex html | v.7.0.4 | 1/7/15 | lv -->
+<!-- width of svg adjusted (to get the container as wide as possible w/o x-scrollbars) -->
+
+<!DOCTYPE html>
+<head>
+<title>data index</title>
+<meta charset="utf-8">
+
+<!-- option 1: CDN libraries -->
+<link href="//fonts.googleapis.com/css?family=Ubuntu:400,700" rel="stylesheet" type="text/css">
+<!-- <link href="//fonts.googleapis.com/css?family=Nunito:400,300,700" rel='stylesheet' type='text/css'>
+<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.2/lodash.min.js"></script>
+<link href="style.css" rel="stylesheet" type="text/css"> -->
+
+
+<!-- option 2: local libraries (local machine and server) -->
+<!-- <link href="fonts/Ubuntu/css/fonts.css" rel="stylesheet" type="text/css"> -->
+<link href="lib/select2-4.0.0.min.css" rel="stylesheet" type="text/css">
+<link href="style.css" rel="stylesheet" type="text/css">
+
+<script src="lib/d3.v5.min.js"></script>
+<script src="lib/jquery-2.1.4.min.js"></script>
+<script src="lib/select2-4.0.0.min.js"></script>
+<script src="lib/lodash-3.9.2.min.js"></script>
+
+
+</head>
+
+<body>
+
+<div id="container">
+	
+	<div id="header">
+		<p>some people who do or know visual data well</p>
+	</div>
+
+	
+	<div id="containerSearchCards">
+
+		<div id="search">
+			<select multiple id="select"></select>
+			<div id="selectMethod">
+				<button class="method" id="any">link tags by OR</li>
+				<button class="method" id="strict">link tags by AND</li>
+			</div>
+		</div>
+		
+		<button id="refresh">refresh</button>
+
+		<div id="cards">
+			<div id="noteSearch">
+				<img id="arrowUp" src="images/arrow1.png" alt="imagine an up-arrow here"/>
+				<p>Search</p>
+			</div>
+			<div id="noteBrowse">
+				<p>and browse</p>
+				<img id="arrowRight" src="images/arrow2.png" alt="imagine a right-arrow here"/>
+			</div>
+		</div>
+		
+	</div>	
+	<div id="containerTree">
+
+		<button class="setTreeStructure" id="treeStructure1">browse by background and work</button>
+		<button class="setTreeStructure" id="treeStructure2">browse by nationality and background</button>
+		<!-- <button class="setTreeStructure" id="treeStructure3">browse by background and tags</button> -->
+
+	</div>	
+
+</div>
+
+<div id="tooltip"></div>
+
+
+<script src="search.js"></script>
+
+
+
+</body>
+
+</html>

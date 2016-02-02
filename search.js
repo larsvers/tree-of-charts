@@ -55,7 +55,7 @@ var index = [
 */
 
 
-d3.tsv('data/datav3.tsv', function(err, data){
+d3.tsv('data/data.tsv', function(err, data){
 	if (err) log('data loading error');
 	// log('data', data);
 
@@ -88,14 +88,26 @@ d3.tsv('data/datav3.tsv', function(err, data){
 	
 	// decide here which tags should become searchable. 
 	// Then create searchData array holding all the searchable tabs from all reports
-	
+
 	var tagobjects = {}; // create the objects you need for the search box (param 1: variable name, param 2: semantic name for the user)
-	tagobjects.name = util.searchdataTransform('name', 'Name');
-	tagobjects.nationality = util.searchdataTransform('nationality', 'Nationality');
-	tagobjects.employer = util.searchdataTransform('works_for', 'Employer');
-	tagobjects.workCategory = util.searchdataTransform('work_category', 'Work Category');
-	tagobjects.backgroundCategory = util.searchdataTransform('background_category', 'Background');
-	tagobjects.tags = util.searchdataTransform('tags', 'Tags');
+	tagobjects.a = util.searchdataTransform('name', 'Name');
+	tagobjects.b = util.searchdataTransform('dataset_type', 'What | Data Type (Munzner)');
+	tagobjects.c = util.searchdataTransform('dataset_type_shneiderman', 'What | Data Type (Shneiderman)');
+	tagobjects.d = util.searchdataTransform('number_of_variables_rough', 'What | Number of variables');
+	tagobjects.e = util.searchdataTransform('categories_wo_aid_sum', 'What | Number of categories');
+	tagobjects.f = util.searchdataTransform('values_sum', 'What | Number of values');
+	tagobjects.g = util.searchdataTransform('data_type_sum_long', 'What | Variable type');
+	tagobjects.h = util.searchdataTransform('target_usage_munzner_all', 'Why | General target of visual (Munzner)');
+	tagobjects.i = util.searchdataTransform('target_specific_munzner', 'Why | Specific target of visual (Munzner)');
+	tagobjects.j = util.searchdataTransform('target_usage_alternative_all', 'Why | General target of visual (alternative)');
+	tagobjects.k = util.searchdataTransform('action_analysis', 'Why | Analysis action');
+	tagobjects.l = util.searchdataTransform('action_search', 'Why | Search action');
+	tagobjects.m = util.searchdataTransform('action_query_all', 'Why | Query action');
+	tagobjects.n = util.searchdataTransform('all_marks', 'How | Visual mark');
+	tagobjects.o = util.searchdataTransform('channel', 'How | Visual channel');
+	tagobjects.p = util.searchdataTransform('Type', 'How | Chart type');
+	tagobjects.q = util.searchdataTransform('family', 'How | Chart family');
+	
 
 	var searchData = []; // create the final search data array of objects
 	for (key in tagobjects) {
@@ -104,7 +116,7 @@ d3.tsv('data/datav3.tsv', function(err, data){
 
 	// log('searchData', searchData);
 
-
+	
 	// report card data -----------------------------------------
 	
 	// Move all string-lists into arrays (to have clean objects) (1) and put all searchable tags into an extra property per object called 'SearchTags' (2) 

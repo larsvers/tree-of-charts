@@ -119,44 +119,48 @@ d3.tsv('data/data.tsv', function(err, data){
 	
 	// report card data -----------------------------------------
 	
-	// Move all string-lists into arrays (to have clean objects) (1) and put all searchable tags into an extra property per object called 'SearchTags' (2) 
+	// (1) Move all string-lists into arrays (to have clean objects) and 
+	// (2) put all searchable tags into an extra property per object called 'SearchTags'.
 	// This array SearchTags will later be matched with the user-selected tags which were produced for and live in searchData
 	
 	var reportData = data;
 
+	
 	// not in function; can be done with a little more flexibility allowing for variable number of key-names to coerce to objects (function would need to be based on arg-length)
 	for (key in reportData) {
-	
+
 		if (reportData.hasOwnProperty(key)) {
 			
-			reportData[key].tags = reportData[key].tags.split(', ');
+			reportData[key].data_type = reportData[key].data_type.split(', ');
 			
-			reportData[key].tag_category = reportData[key].tag_category.split(', ');
+			reportData[key].target_usage_munzner_all = reportData[key].target_usage_munzner_all.split(', ');
 
-			reportData[key].tags_focus = reportData[key].tags_focus.split(', ');
+			reportData[key].target_specific_munzner = reportData[key].target_specific_munzner.split(', ');
 			
-			reportData[key].tags_tools = reportData[key].tags_tools.split(', ');
+			reportData[key].target_usage_alternative_all = reportData[key].target_usage_alternative_all.split(', ');
 
-			reportData[key].tags_visual_output = reportData[key].tags_visual_output.split(', ');
+			reportData[key].action_query_all = reportData[key].action_query_all.split(', ');
 
-			reportData[key].tags_employer = reportData[key].tags_employer.split(', ');
+			reportData[key].all_marks = reportData[key].all_marks.split(', ');
 
-			reportData[key].SearchTags = _.union(
-				[reportData[key].name],
-				[reportData[key].nationality],
-				[reportData[key].worls_for],
-				[reportData[key].work_category],
-				[reportData[key].background_category],
-				reportData[key].tags
-			); // create an array of unique elements (_.union requires arrays as input. Hence turn single strings into arrays with the [brackets])
+			reportData[key].channel = reportData[key].channel.split(', ');
+
+			// reportData[key].SearchTags = _.union(
+			// 	[reportData[key].name],
+			// 	[reportData[key].nationality],
+			// 	[reportData[key].worls_for],
+			// 	[reportData[key].work_category],
+			// 	[reportData[key].background_category],
+			// 	reportData[key].tags
+			// ); // create an array of unique elements (_.union requires arrays as input. Hence turn single strings into arrays with the [brackets])
 		
-		} // check for only enumerable non-inherited properties (objects at least have the length-property)
+		} // check for only enumerable non-inherited properties (objects at least have the length-property) - actually don't. at least not for the tree of charts
 	
 	} // for each report
 
 	// log('reportData', reportData);
 	
-
+	
 	
 	// tree data -----------------------------------------------
 
@@ -184,7 +188,7 @@ d3.tsv('data/data.tsv', function(err, data){
 
 
 	/* different tree structures ================================ */
-	/* feed reportData into the d3.nest().entires() if the first category only includes flat, single values */
+	/* feed reportData into the d3.nest().entries() if the first category only includes flat, single values */
 	/* feed reportDataClone into the d3.nest().entries() if the first category originally includes an array which is fanned out */
 
 
@@ -297,7 +301,7 @@ d3.tsv('data/data.tsv', function(err, data){
 	
 
 	
-	// save data to a blobal window-object ----------------------
+	// save data to a global window-object ----------------------
 	
 	// save data as a window object to let every function have access to it http://stackoverflow.com/questions/9491885/csv-to-array-in-d3-js
 	window.gvis = {};
@@ -315,29 +319,29 @@ d3.tsv('data/data.tsv', function(err, data){
 	vis.tree.init();
 	
 	// transition to basic instructions
-		d3.selectAll('div#noteSearch, div#noteBrowse')
-			.style('display', 'inherit')
-			.style('opacity', 0)
-			.transition()
-			.duration(500)
-			.delay(750)
-			.style('opacity', 1);
+	d3.selectAll('div#noteSearch, div#noteBrowse')
+		.style('display', 'inherit')
+		.style('opacity', 0)
+		.transition()
+		.duration(500)
+		.delay(750)
+		.style('opacity', 1);
 
-		d3.selectAll('.setTreeStructure').on('mousedown', function(){
-		
-			if(this.id === 'treeStructure1') {
-				dataTree.children = setTreeStructure1();
-				d3.select('#treeStructure1').transition().style('opacity', .8);
-				d3.select('#treeStructure2').transition().style('opacity', 1);
-			} else if(this.id === 'treeStructure2') {
-				dataTree.children = setTreeStructure2();
-				d3.select('#treeStructure1').transition().style('opacity', 1);
-				d3.select('#treeStructure2').transition().style('opacity', .8);
-			} 
+	d3.selectAll('.setTreeStructure').on('mousedown', function(){
+	
+		if(this.id === 'treeStructure1') {
+			dataTree.children = setTreeStructure1();
+			d3.select('#treeStructure1').transition().style('opacity', .8);
+			d3.select('#treeStructure2').transition().style('opacity', 1);
+		} else if(this.id === 'treeStructure2') {
+			dataTree.children = setTreeStructure2();
+			d3.select('#treeStructure1').transition().style('opacity', 1);
+			d3.select('#treeStructure2').transition().style('opacity', .8);
+		} 
 
-			vis.tree.clearAll(gvis.root);
-	    gvis.root.children.forEach(vis.tree.collapse);
-	    vis.tree.update(gvis.root);
+		vis.tree.clearAll(gvis.root);
+    gvis.root.children.forEach(vis.tree.collapse);
+    vis.tree.update(gvis.root);
 	});
 
 }); // data load and prep

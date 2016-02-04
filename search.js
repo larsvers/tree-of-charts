@@ -165,26 +165,26 @@ d3.tsv('data/data.tsv', function(err, data){
 	// tree data -----------------------------------------------
 
 
-	// var dataClone = _.cloneDeep(reportData);
+	// mechanic to fan out report to a variable with a list of tags - not used 
 
-	var reportDataClone = [];
+	// var reportDataClone = [];
 
-	reportData.forEach(function(el){
+	// reportData.forEach(function(el){
 
-		el.tags.forEach(function(elem){
+	// 	el.tags.forEach(function(elem){
 
-			var obj = _.clone(el); // a new array would just reference the object. Hence we need to clone each object we work on. A non-library way to deep-clone is var obj = JSON.parse(JSON.stringify(el));
-			obj.tags = elem; // just write the area
-			obj.Identifier = obj.twitter +  '_' + obj.tags.substr(0,3); // and change the identifier to keep them unique
-			// log(elem, obj);
+	// 		var obj = _.clone(el); // a new array would just reference the object. Hence we need to clone each object we work on. A non-library way to deep-clone is var obj = JSON.parse(JSON.stringify(el));
+	// 		obj.tags = elem; // just write the area
+	// 		obj.Identifier = obj.twitter +  '_' + obj.tags.substr(0,3); // and change the identifier to keep them unique
+	// 		// log(elem, obj);
 
-			reportDataClone.push(obj);
+	// 		reportDataClone.push(obj);
 
-		}); // for each tag in the report (2)
+	// 	}); // for each tag in the report (2)
 
-	}); // for each row (1)
+	// }); // for each row (1)
 	
-	log('reportDataClone', reportDataClone);
+	// log('reportDataClone', reportDataClone);
 
 
 	/* different tree structures ================================ */
@@ -192,68 +192,132 @@ d3.tsv('data/data.tsv', function(err, data){
 	/* feed reportDataClone into the d3.nest().entries() if the first category originally includes an array which is fanned out */
 
 
-	// tree structure 1: Background > Work
-	var setTreeStructure1 = function() {
-		// get hierarchy
-		var dataNest = d3.nest()
-			.key(function(d) { return d.background_category; }).sortKeys(d3.ascending)
-			.key(function(d) { return d.work_category; }).sortKeys(d3.ascending)
-			.entries(reportData);
+	// function to build nested data for the tree
+	
+	var setTreeStructure = function(arr, data) {
 
-		// change variable names
-		dataNest.forEach(function(d){
-			d.children = d.values;
-			delete d.values;
+		var l = arr.length;
+		var dataNest;
 
-			d.children.forEach(function(d){
+		if (l === 2) {
+
+			dataNest = d3.nest()
+				.key(function(d) { return d[arr[0]]; }).sortKeys(d3.ascending)
+				.key(function(d) { return d[arr[1]]; }).sortKeys(d3.ascending)
+				.entries(data);
+
+			dataNest.forEach(function(d) {
 				d.children = d.values;
 				delete d.values;
+ 				
+ 				d.children.forEach(function(d) {
+ 					d.children = d.values;
+ 					delete d.values;
 
-				// d.children.forEach(function(d){
-				// 	d.children = d.values;
-				// 	delete d.values;
-				//
-				// }); // // rename the children-property of the third level
+ 				}); // name change 2nd level
+
+			}); // name change 1st level
+
+		} else if (l === 3) {
+
+			dataNest = d3.nest()
+				.key(function(d) { return d[arr[0]]; }).sortKeys(d3.ascending)
+				.key(function(d) { return d[arr[1]]; }).sortKeys(d3.ascending)
+				.key(function(d) { return d[arr[2]]; }).sortKeys(d3.ascending)
+				.entries(data);
+
+			dataNest.forEach(function(d) {
+				d.children = d.values;
+				delete d.values;
+ 				
+ 				d.children.forEach(function(d) {
+ 					d.children = d.values;
+ 					delete d.values;
+
+					d.children.forEach(function(d) {
+	 					d.children = d.values;
+	 					delete d.values;
+
+ 					}); // name change 3rd level
+
+ 				}); // name change 2nd level
+
+			}); // name change 1st level
+
+		} else if (l === 4) {
+
+			dataNest = d3.nest()
+				.key(function(d) { return d[arr[0]]; }).sortKeys(d3.ascending)
+				.key(function(d) { return d[arr[1]]; }).sortKeys(d3.ascending)
+				.key(function(d) { return d[arr[2]]; }).sortKeys(d3.ascending)
+				.key(function(d) { return d[arr[3]]; }).sortKeys(d3.ascending)
+				.entries(data);
+
+			dataNest.forEach(function(d) {
+				d.children = d.values;
+				delete d.values;
+ 				
+ 				d.children.forEach(function(d) {
+ 					d.children = d.values;
+ 					delete d.values;
+
+					d.children.forEach(function(d) {
+	 					d.children = d.values;
+	 					delete d.values;
+
+						d.children.forEach(function(d) {
+		 					d.children = d.values;
+		 					delete d.values;
+
+	 					}); // name change 4th level
+
+ 					}); // name change 3rd level
+
+ 				}); // name change 2nd level
+
+			}); // name change 1st level
+
+		} else {
 			
-			}); // // rename the children-property of the second level
+			console.warn('Problem with setTreeStructure()')
 		
-		}); // rename the children-property of the first level
+		} // test for the array length and build dataNest accordingly
 
-		return dataNest;			
+		return dataNest;
+
 	}
 
-	// tree structure 2: nationality > background_category
-	var setTreeStructure2 = function() {
-		// get hierarchy
-		var dataNest = d3.nest()
-			.key(function(d) { return d.nationality; }).sortKeys(d3.ascending)
-			.key(function(d) { return d.background_category; }).sortKeys(d3.ascending)
-			// .key(function(d) { return d.Name; }).sortKeys(d3.ascending)
-			.entries(reportData);
 
-		// change variable names
-		dataNest.forEach(function(d){
-			d.children = d.values;
-			delete d.values;
+	// set the arguments and get the data
 
-			d.children.forEach(function(d){
-				d.children = d.values;
-				delete d.values;
+	var treeData = {}; // holds all tree data
+	treeData.within = {}; // data for within visual process stages
+	treeData.across = {}; // data for across visual process stages
+	
+	// these are the nest combinations I chose (there can be more or less)
+	treeData.within.a = setTreeStructure(['dataset_type', 'data_type_sum_short'], reportData);
+	treeData.within.b = setTreeStructure(['number_of_variables_rough', 'categories_wo_aid_sum', 'values_sum'], reportData);
+	treeData.within.c = setTreeStructure(['target_usage_munzner_main', 'action_analysis', 'action_search', 'action_query'], reportData);
+	treeData.within.d = setTreeStructure(['main_mark', 'main_channel'], reportData);
+	treeData.within.e = setTreeStructure(['Type', 'Family'], reportData);
 
-				// d.children.forEach(function(d){
-				// 	d.children = d.values;
-				// 	delete d.values;
-				//
-				// }); // // rename the children-property of the third level
-			
-			}); // // rename the children-property of the second level
-		
-		}); // rename the children-property of the first level
+	treeData.across.a = setTreeStructure(['dataset_type', 'action_analysis', 'main_channel'], reportData);
+	treeData.across.b = setTreeStructure(['data_type_sum_long', 'number_of_variables_rough', 'target_usage_alternative_main'], reportData);
+	treeData.across.c = setTreeStructure(['action_analysis', 'Family', 'number_of_variables_rough'], reportData);
+	treeData.across.d = setTreeStructure(['values_sum', 'action_search', 'action_query'], reportData);
+	treeData.across.e = setTreeStructure(['data_type_sum_long', 'target_usage_alternative_main'], reportData);
 
-		return dataNest;			
-	};
 
-/* possible 3rd structure (looks however a bit busy)
+	// get the dataset names into an array (ATTENTION ! maybe not necessary)
+
+	var treeDataNames = ['treeData.within.a', 'treeData.within.b', 'treeData.within.c', 'treeData.within.d', 'treeData.within.e', 
+											 'treeData.across.a', 'treeData.across.b', 'treeData.across.c', 'treeData.across.d', 'treeData.across.e']
+
+
+	
+
+/* legacy structure with fanned out tags from the 'visual people tree'
+	 note that we pass in different data (reportDataClone)
 
 	// tree structure 3: work_category > tags
 	var setTreeStructure3 = function() {
@@ -290,8 +354,8 @@ d3.tsv('data/data.tsv', function(err, data){
 
 	// needs to be in Object for d3.tree() - - -
 	var dataTree = {};
-	dataTree.key = "visual people";
-	dataTree.children = setTreeStructure1();
+	dataTree.key = "visuals";
+	dataTree.children = treeData.within.a;
 	
 	log('dataTree', dataTree);
 	

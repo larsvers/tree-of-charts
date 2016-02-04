@@ -310,61 +310,41 @@ d3.tsv('data/data.tsv', function(err, data){
 
 	// get the dataset names into an array (ATTENTION ! maybe not necessary)
 
-	var treeDataNames = ['treeData.within.a', 'treeData.within.b', 'treeData.within.c', 'treeData.within.d', 'treeData.within.e', 
-											 'treeData.across.a', 'treeData.across.b', 'treeData.across.c', 'treeData.across.d', 'treeData.across.e']
+	var treeDataNames = {};
 
+	treeDataNames = [
+		{ data1: 'within', data2: 'a', label: 	'what data', id: 'whatdata' },
+		{ data1: 'within', data2: 'b', label: 'what scale', id: 'whatscale' },
+		{ data1: 'within', data2: 'c', label: 'why', id: 'why' },
+		{ data1: 'within', data2: 'd', label: 'how', id: 'whatdata' },
+		{ data1: 'within', data2: 'e', label: 'what type', id: 'whatdata' },
+		{ data1: 'across', data2: 'a', label: 'what \u00B7 why \u00B7 how', id: 'whatwhyhow' },
+		{ data1: 'across', data2: 'b', label: 'data \u00B7 scale \u00B7 usage', id: 'datascaleusage' },
+		{ data1: 'across', data2: 'c', label: 'action \u00B7 type \u00B7 scale', id: 'actiontypescale' },
+		{ data1: 'across', data2: 'd', label: 'scale \u00B7 action', id: 'scaleaction' },
+		{ data1: 'across', data2: 'e', label: 'type \u00B7 usage', id: 'typeusage' },
+		
+	];
+
+
+	// set buttons
+	d3.select('div#containerTree').selectAll('.buttons')
+		.data(treeDataNames)
+		.enter()
+		.append('button')
+		.attr('class', 'setTreeStructure')
+		.attr('id', function(d) { return d.id; })
+		.html(function(d) { return d.label; });
 
 	
-
-/* legacy structure with fanned out tags from the 'visual people tree'
-	 note that we pass in different data (reportDataClone)
-
-	// tree structure 3: work_category > tags
-	var setTreeStructure3 = function() {
-		// get hierarchy
-		var dataNest = d3.nest()
-			.key(function(d) { return d.tags; }).sortKeys(d3.ascending)
-			.key(function(d) { return d.work_category; }).sortKeys(d3.ascending)
-			// .key(function(d) { return d.Name; }).sortKeys(d3.ascending)
-			.entries(reportDataClone);
-
-		// change variable names
-		dataNest.forEach(function(d){
-			d.children = d.values;
-			delete d.values;
-
-			d.children.forEach(function(d){
-				d.children = d.values;
-				delete d.values;
-
-				// d.children.forEach(function(d){
-				// 	d.children = d.values;
-				// 	delete d.values;
-				//
-				// }); // // rename the children-property of the third level
-			
-			}); // // rename the children-property of the second level
-		
-		}); // rename the children-property of the first level
-
-		return dataNest;			
-	}
-
-*/
-
 	// needs to be in Object for d3.tree() - - -
 	var dataTree = {};
-	dataTree.key = "visuals";
+	dataTree.key = "Chart tree";
 	dataTree.children = treeData.within.a;
 	
 	log('dataTree', dataTree);
-	
-	// set button opacity 1 for initial treeStructure
-	d3.select('#treeStructure1').transition().style('opacity', .8);
-	d3.select('#treeStructure2').transition().style('opacity', 1);
-	
+		
 
-	
 	// save data to a global window-object ----------------------
 	
 	// save data as a window object to let every function have access to it http://stackoverflow.com/questions/9491885/csv-to-array-in-d3-js
@@ -391,6 +371,31 @@ d3.tsv('data/data.tsv', function(err, data){
 		.delay(750)
 		.style('opacity', 1);
 
+
+	// add button handlers
+	d3.selectAll('.setTreeStructure').on('mousedown', function() {
+
+		var self = d3.select(this),
+				data1 = self.data()[0].data1,
+				data2 = self.data()[0].data2,
+				data = treeData[data1][data2];
+
+		log(data);
+
+		dataTree.children = data;
+		vis.tree.clearAll(gvis.root);
+    gvis.root.children.forEach(vis.tree.collapse);
+    vis.tree.update(gvis.root);
+
+
+	}); //
+
+
+
+
+
+/*
+
 	d3.selectAll('.setTreeStructure').on('mousedown', function(){
 	
 		if(this.id === 'treeStructure1') {
@@ -407,6 +412,8 @@ d3.tsv('data/data.tsv', function(err, data){
     gvis.root.children.forEach(vis.tree.collapse);
     vis.tree.update(gvis.root);
 	});
+*/
+
 
 }); // data load and prep
 

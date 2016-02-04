@@ -130,7 +130,7 @@ div#containerTree {
 	height: 87vh; /* viewport height - read http://snook.ca/archives/html_and_css/vm-vh-units */
 	float: right;
 
-/*	border-left: 1px solid #bbb;*/
+	border: 1px solid #bbb;
 }
 
 /* not used yet */

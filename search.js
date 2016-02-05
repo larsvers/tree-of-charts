@@ -105,7 +105,7 @@ d3.tsv('data/data.tsv', function(err, data){
 	tagobjects.m = util.searchdataTransform('action_query_all', 'Why | Query action');
 	tagobjects.n = util.searchdataTransform('all_marks', 'How | Visual mark');
 	tagobjects.o = util.searchdataTransform('channel', 'How | Visual channel');
-	tagobjects.p = util.searchdataTransform('Type', 'How | Chart type');
+	tagobjects.p = util.searchdataTransform('type', 'How | Chart type');
 	tagobjects.q = util.searchdataTransform('family', 'How | Chart family');
 	
 
@@ -144,15 +144,6 @@ d3.tsv('data/data.tsv', function(err, data){
 			reportData[key].all_marks = reportData[key].all_marks.split(', ');
 
 			reportData[key].channel = reportData[key].channel.split(', ');
-
-			// reportData[key].SearchTags = _.union(
-			// 	[reportData[key].name],
-			// 	[reportData[key].nationality],
-			// 	[reportData[key].worls_for],
-			// 	[reportData[key].work_category],
-			// 	[reportData[key].background_category],
-			// 	reportData[key].tags
-			// ); // create an array of unique elements (_.union requires arrays as input. Hence turn single strings into arrays with the [brackets])
 		
 		} // check for only enumerable non-inherited properties (objects at least have the length-property) - actually don't. at least not for the tree of charts
 	
@@ -165,36 +156,17 @@ d3.tsv('data/data.tsv', function(err, data){
 	// tree data -----------------------------------------------
 
 
-	// mechanic to fan out report to a variable with a list of tags - not used 
-
-	// var reportDataClone = [];
-
-	// reportData.forEach(function(el){
-
-	// 	el.tags.forEach(function(elem){
-
-	// 		var obj = _.clone(el); // a new array would just reference the object. Hence we need to clone each object we work on. A non-library way to deep-clone is var obj = JSON.parse(JSON.stringify(el));
-	// 		obj.tags = elem; // just write the area
-	// 		obj.Identifier = obj.twitter +  '_' + obj.tags.substr(0,3); // and change the identifier to keep them unique
-	// 		// log(elem, obj);
-
-	// 		reportDataClone.push(obj);
-
-	// 	}); // for each tag in the report (2)
-
-	// }); // for each row (1)
-	
-	// log('reportDataClone', reportDataClone);
-
-
 	/* different tree structures ================================ */
 	/* feed reportData into the d3.nest().entries() if the first category only includes flat, single values */
 	/* feed reportDataClone into the d3.nest().entries() if the first category originally includes an array which is fanned out */
 
 
 	// function to build nested data for the tree
-	
-	var setTreeStructure = function(arr, data) {
+	// number of nesting levels dependent on the array of variables we specify
+	// sorts each key ascending unless we specify a custom order through the 'order' argument
+
+
+	var setTreeStructure = function(arr, data, order) {
 
 		var l = arr.length;
 		var dataNest;
@@ -202,8 +174,9 @@ d3.tsv('data/data.tsv', function(err, data){
 		if (l === 2) {
 
 			dataNest = d3.nest()
-				.key(function(d) { return d[arr[0]]; }).sortKeys(d3.ascending)
-				.key(function(d) { return d[arr[1]]; }).sortKeys(d3.ascending)
+				// .key(function(d) { return d[arr[0]]; }).sortKeys(d3.ascending)
+				.key(function(d) { return d[arr[0]]; }).sortKeys(order[0].length === 0 ? d3.ascending : function(a,b) { return order[0].indexOf(a) - order[0].indexOf(b); })
+				.key(function(d) { return d[arr[1]]; }).sortKeys(order[1].length === 0 ? d3.ascending : function(a,b) { return order[1].indexOf(a) - order[1].indexOf(b); })
 				.entries(data);
 
 			dataNest.forEach(function(d) {
@@ -221,9 +194,9 @@ d3.tsv('data/data.tsv', function(err, data){
 		} else if (l === 3) {
 
 			dataNest = d3.nest()
-				.key(function(d) { return d[arr[0]]; }).sortKeys(d3.ascending)
-				.key(function(d) { return d[arr[1]]; }).sortKeys(d3.ascending)
-				.key(function(d) { return d[arr[2]]; }).sortKeys(d3.ascending)
+				.key(function(d) { return d[arr[0]]; }).sortKeys(order[0].length === 0 ? d3.ascending : function(a,b) { return order[0].indexOf(a) - order[0].indexOf(b); })
+				.key(function(d) { return d[arr[1]]; }).sortKeys(order[1].length === 0 ? d3.ascending : function(a,b) { return order[1].indexOf(a) - order[1].indexOf(b); })
+				.key(function(d) { return d[arr[2]]; }).sortKeys(order[2].length === 0 ? d3.ascending : function(a,b) { return order[2].indexOf(a) - order[2].indexOf(b); })
 				.entries(data);
 
 			dataNest.forEach(function(d) {
@@ -247,10 +220,10 @@ d3.tsv('data/data.tsv', function(err, data){
 		} else if (l === 4) {
 
 			dataNest = d3.nest()
-				.key(function(d) { return d[arr[0]]; }).sortKeys(d3.ascending)
-				.key(function(d) { return d[arr[1]]; }).sortKeys(d3.ascending)
-				.key(function(d) { return d[arr[2]]; }).sortKeys(d3.ascending)
-				.key(function(d) { return d[arr[3]]; }).sortKeys(d3.ascending)
+				.key(function(d) { return d[arr[0]]; }).sortKeys(order[0].length === 0 ? d3.ascending : function(a,b) { return order[0].indexOf(a) - order[0].indexOf(b); })
+				.key(function(d) { return d[arr[1]]; }).sortKeys(order[1].length === 0 ? d3.ascending : function(a,b) { return order[1].indexOf(a) - order[1].indexOf(b); })
+				.key(function(d) { return d[arr[2]]; }).sortKeys(order[2].length === 0 ? d3.ascending : function(a,b) { return order[2].indexOf(a) - order[2].indexOf(b); })
+				.key(function(d) { return d[arr[3]]; }).sortKeys(order[3].length === 0 ? d3.ascending : function(a,b) { return order[3].indexOf(a) - order[3].indexOf(b); })
 				.entries(data);
 
 			dataNest.forEach(function(d) {
@@ -287,6 +260,32 @@ d3.tsv('data/data.tsv', function(err, data){
 
 	}
 
+	
+	// get the dataset names into an array (object you want to see first in button list needs to be last in array to show up first in view as it gets .appended)
+
+	var treeDataNames = [
+	
+		{ data1: 'across', data2: 'c', label: 'scale \u00B7 action', id: 'scaleaction' },
+		{ data1: 'across', data2: 'b', label: 'action \u00B7 scale \u00B7 type', id: 'actionscaletype' },
+		{ data1: 'across', data2: 'a', label: 'data \u00B7 scale \u00B7 usage', id: 'datascaleusage' },
+		{ data1: 'within', data2: 'e', label: 'what type', id: 'whatdata' },
+		{ data1: 'within', data2: 'd', label: 'how', id: 'whatdata' },
+		{ data1: 'within', data2: 'c', label: 'why', id: 'why' },
+		{ data1: 'within', data2: 'b', label: 'what scale', id: 'whatscale' },
+		{ data1: 'within', data2: 'a', label: 'what data', id: 'whatdata' }
+		
+	];
+
+
+	// variables for tree that require custom order (3rd argument to setTreeStructure)
+
+	var data_type_sum_short_order = ['Cat', 'Quant', 'Cat, Ord', 'Cat, Quant', 'Cat, Ord, Quant'],
+			categories_wo_aid_sum_order = ['under 10 categories', '10-99 categories', '100-999 categories', '1000 and more categories'],
+			values_sum_order = ['under 20 values', 'Dozens of values', 'Hundreds of values', 'Thousands of values', 'Infinite no. of values'],
+			action_analysis_order = ['Explain', 'Discover', 'Discover and Explain'],
+			main_mark_order = ['Points', 'Lines', 'Areas', 'Connection', 'Containment'],
+			family_order = ['Bar chart', 'Line chart', 'Map', 'Tree', 'Network', 'Scatterplot', 'Distribution plot', 'Euler diagram', 'Flow diagram', 'Pie chart', 'Table', 'Multidimensional plot2', 'Other'];
+
 
 	// set the arguments and get the data
 
@@ -295,36 +294,16 @@ d3.tsv('data/data.tsv', function(err, data){
 	treeData.across = {}; // data for across visual process stages
 	
 	// these are the nest combinations I chose (there can be more or less)
-	treeData.within.a = setTreeStructure(['dataset_type', 'data_type_sum_short'], reportData);
-	treeData.within.b = setTreeStructure(['number_of_variables_rough', 'categories_wo_aid_sum', 'values_sum'], reportData);
-	treeData.within.c = setTreeStructure(['target_usage_munzner_main', 'action_analysis', 'action_search', 'action_query'], reportData);
-	treeData.within.d = setTreeStructure(['main_mark', 'main_channel'], reportData);
-	treeData.within.e = setTreeStructure(['Type', 'Family'], reportData);
+	treeData.within.a = setTreeStructure(['dataset_type', 'data_type_sum_short'], reportData, [[],data_type_sum_short_order]);
+	treeData.within.b = setTreeStructure(['number_of_variables_rough', 'categories_wo_aid_sum', 'values_sum'], reportData, [[],categories_wo_aid_sum_order,values_sum_order]);
+	treeData.within.c = setTreeStructure(['target_usage_munzner_main', 'action_analysis', 'action_query'], reportData, [[],action_analysis_order,[]]);
+	treeData.within.d = setTreeStructure(['main_mark', 'main_channel'], reportData, [main_mark_order,[]]);
+	treeData.within.e = setTreeStructure(['type', 'family'], reportData, [[],family_order]);
 
-	treeData.across.a = setTreeStructure(['dataset_type', 'action_analysis', 'main_channel'], reportData);
-	treeData.across.b = setTreeStructure(['data_type_sum_long', 'number_of_variables_rough', 'target_usage_alternative_main'], reportData);
-	treeData.across.c = setTreeStructure(['action_analysis', 'Family', 'number_of_variables_rough'], reportData);
-	treeData.across.d = setTreeStructure(['values_sum', 'action_search', 'action_query'], reportData);
-	treeData.across.e = setTreeStructure(['data_type_sum_long', 'target_usage_alternative_main'], reportData);
-
-
-	// get the dataset names into an array (ATTENTION ! maybe not necessary)
-
-	var treeDataNames = {};
-
-	treeDataNames = [
-		{ data1: 'within', data2: 'a', label: 	'what data', id: 'whatdata' },
-		{ data1: 'within', data2: 'b', label: 'what scale', id: 'whatscale' },
-		{ data1: 'within', data2: 'c', label: 'why', id: 'why' },
-		{ data1: 'within', data2: 'd', label: 'how', id: 'whatdata' },
-		{ data1: 'within', data2: 'e', label: 'what type', id: 'whatdata' },
-		{ data1: 'across', data2: 'a', label: 'what \u00B7 why \u00B7 how', id: 'whatwhyhow' },
-		{ data1: 'across', data2: 'b', label: 'data \u00B7 scale \u00B7 usage', id: 'datascaleusage' },
-		{ data1: 'across', data2: 'c', label: 'action \u00B7 type \u00B7 scale', id: 'actiontypescale' },
-		{ data1: 'across', data2: 'd', label: 'scale \u00B7 action', id: 'scaleaction' },
-		{ data1: 'across', data2: 'e', label: 'type \u00B7 usage', id: 'typeusage' },
-		
-	];
+	treeData.across.a = setTreeStructure(['data_type_sum_short', 'number_of_variables_rough', 'target_usage_alternative_main'], reportData, [data_type_sum_short_order,[],[]]);
+	treeData.across.b = setTreeStructure(['action_analysis', 'number_of_variables_rough', 'family'], reportData, [action_analysis_order,[],family_order]);
+	treeData.across.c = setTreeStructure(['values_sum', 'action_search', 'action_query'], reportData, [values_sum_order,[],[]]);
+	
 
 
 	// set buttons
@@ -380,7 +359,7 @@ d3.tsv('data/data.tsv', function(err, data){
 				data2 = self.data()[0].data2,
 				data = treeData[data1][data2];
 
-		log(data);
+		// log(data);
 
 		dataTree.children = data;
 		vis.tree.clearAll(gvis.root);
@@ -390,29 +369,6 @@ d3.tsv('data/data.tsv', function(err, data){
 
 	}); //
 
-
-
-
-
-/*
-
-	d3.selectAll('.setTreeStructure').on('mousedown', function(){
-	
-		if(this.id === 'treeStructure1') {
-			dataTree.children = setTreeStructure1();
-			d3.select('#treeStructure1').transition().style('opacity', .8);
-			d3.select('#treeStructure2').transition().style('opacity', 1);
-		} else if(this.id === 'treeStructure2') {
-			dataTree.children = setTreeStructure2();
-			d3.select('#treeStructure1').transition().style('opacity', 1);
-			d3.select('#treeStructure2').transition().style('opacity', .8);
-		} 
-
-		vis.tree.clearAll(gvis.root);
-    gvis.root.children.forEach(vis.tree.collapse);
-    vis.tree.update(gvis.root);
-	});
-*/
 
 
 }); // data load and prep

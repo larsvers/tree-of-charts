@@ -5,7 +5,8 @@
 // utility ---------------------------------------------------------------------------------------------------------
 var log = console.log.bind(console); // snippet log
 var dir = console.dir.bind(console); // snippet dir
-
+var spaceLess = function(x) { return x.replace(/[^A-Za-z]/g,''); } // remove all non-letter characters
+	
 // ! not used, replaced with lodash's _.intersection !
 // Prototype adjustments: compare 2 arrays and return true if there are any matches (*this* is the Array to call it on)
 Array.prototype.anymatch = function(arr) {
@@ -108,7 +109,6 @@ d3.tsv('data/data.tsv', function(err, data){
 	tagobjects.p = util.searchdataTransform('type', 'How | Chart type');
 	tagobjects.q = util.searchdataTransform('family', 'How | Chart family');
 	
-
 	var searchData = []; // create the final search data array of objects
 	for (key in tagobjects) {
 		searchData.push(tagobjects[key]);
@@ -120,8 +120,8 @@ d3.tsv('data/data.tsv', function(err, data){
 	// report card data -----------------------------------------
 	
 	// (1) Move all string-lists into arrays (to have clean objects) and 
-	// (2) put all searchable tags into an extra property per object called 'SearchTags'.
-	// This array SearchTags will later be matched with the user-selected tags which were produced for and live in searchData
+	// (2) put all searchable tags into an extra property per object called 'searchTags'.
+	// This array searchTags will later be matched with the user-selected tags which were produced for and live in searchData
 	
 	var reportData = data;
 
@@ -131,6 +131,7 @@ d3.tsv('data/data.tsv', function(err, data){
 
 		if (reportData.hasOwnProperty(key)) {
 			
+			// turn comma-seperated lists into arrays
 			reportData[key].data_type = reportData[key].data_type.split(', ');
 			
 			reportData[key].target_usage_munzner_all = reportData[key].target_usage_munzner_all.split(', ');
@@ -144,15 +145,74 @@ d3.tsv('data/data.tsv', function(err, data){
 			reportData[key].all_marks = reportData[key].all_marks.split(', ');
 
 			reportData[key].channel = reportData[key].channel.split(', ');
+
+			// prepare extra arrays for report cards
+			reportData[key].whatData = _.union(
+					[reportData[key].dataset_type],
+					[reportData[key].dataset_type_shneiderman],
+					[reportData[key].data_type_sum_long]
+				);
+
+			reportData[key].whatScale = _.union(
+					[reportData[key].number_of_variables_exact],
+					[reportData[key].categories_wo_aid],
+					[reportData[key].values_detailed]
+				);
+
+			reportData[key].whyTargets = _.union(
+					reportData[key].target_usage_munzner_all,
+					reportData[key].target_specific_munzner,
+					reportData[key].target_usage_alternative_all
+				);
+
+			reportData[key].whyActions = _.union(
+					[reportData[key].action_analysis],
+					[reportData[key].action_search],
+					reportData[key].action_query_all
+				);
+
+			reportData[key].howMarksChannels = _.union(
+					reportData[key].all_marks,
+					reportData[key].channel
+				);
+
+			reportData[key].cardTags = _.union(
+				reportData[key].whatData,
+				reportData[key].whatScale,
+				reportData[key].whyTargets,
+				reportData[key].whyActions,
+				reportData[key].howMarksChannels
+				)
+
+			// create list of all searchable tags to display correct report cards 
+			reportData[key].searchTags = _.union(
+				[reportData[key].name],
+				[reportData[key].dataset_type],
+				[reportData[key].dataset_type_shneiderman],
+				[reportData[key].number_of_variables_rough],
+				[reportData[key].categories_wo_aid_sum],
+				[reportData[key].values_sum],
+				[reportData[key].data_type_sum_long],
+				reportData[key].target_usage_munzner_all,
+				reportData[key].target_specific_munzner,
+				reportData[key].target_usage_alternative_all,
+				[reportData[key].action_analysis],
+				[reportData[key].action_search],
+				reportData[key].action_query_all,
+				reportData[key].all_marks,
+				reportData[key].channel,
+				[reportData[key].type],
+				[reportData[key].family]
+       ); // create an array of unique elements (_.union requires arrays as input. Hence turn single strings into arrays with the [brackets])
 		
 		} // check for only enumerable non-inherited properties (objects at least have the length-property) - actually don't. at least not for the tree of charts
 	
-	} // for each report
+	} // for each row
 
 	// log('reportData', reportData);
 	
 	
-	
+
 	// tree data -----------------------------------------------
 
 
@@ -258,7 +318,7 @@ d3.tsv('data/data.tsv', function(err, data){
 
 		return dataNest;
 
-	}
+	} // setTreeStructure()
 
 	
 	// get the dataset names into an array (object you want to see first in button list needs to be last in array to show up first in view as it gets .appended)
@@ -330,7 +390,7 @@ d3.tsv('data/data.tsv', function(err, data){
 	window.gvis = {};
 	gvis.dataTree = dataTree; // save data for tree  as window object
 	gvis.dataSearch = searchData; // save data for searchbox as window object
-	gvis.dataIndex = reportData; // save data for the report cards as window object
+	gvis.allData = reportData; // save data for the report cards as window object
 	gvis.root; // the data variable used by the tree
   gvis.searchField; // search variable (for eval)
   gvis.searchText; // text to search
@@ -422,21 +482,31 @@ vis.selectbox = (function() {
 		
 		// get the data-objects that match the selected tags
 		function showSelectedReports() {
+
 			var objSelected = $('#select').select2('data'); // get the full array of tags https://github.com/select2/select2/issues/2929
+
 			var tagsSelected = []; // this will hold the chosen tags
+
+
+
 			for (var i = 0; i < objSelected.length; i++) tagsSelected.push(objSelected[i].text); // loop through all tags in the array and push only the chosen into tagsSelected
-			reports = gvis.dataIndex.filter(function(el) {
-				var intersect = _.intersection(el.SearchTags, tagsSelected); // for easier reading - not needed
+
+			reports = gvis.allData.filter(function(el) {
+
+				var intersect = _.intersection(el.searchTags, tagsSelected); // for easier reading - not needed
+
 				var intersectLength = intersect.length;
+
 				if (searchMethodBouncer === 'any') {
 					return intersectLength > 0; // 'any' mode: if there are any intersections between the chosen tags and the report's tags
 				} else if (searchMethodBouncer === 'strict') {
 					return intersectLength === tagsSelected.length; // 'strict' mode: if all chosen tags can be found in the report's tag-array
 				}
+
 			}); // return only the data-index-members that match the selected tags.
 
 			vis.cards.updateCards(reports);
-		}
+		} // showSelectedReports
 
 		$('#select').on('change', showSelectedReports); // update reports object through select field
 
@@ -453,7 +523,7 @@ vis.selectbox = (function() {
 				vis.tree.clearAll(gvis.root);
 		    gvis.root.children.forEach(vis.tree.collapse);
 		    vis.tree.update(gvis.root);
-				d3.selectAll('.report').remove(); // the listener reacts differently for strict search mode and shows all reports upon closing. lazsy remove instead of de-bugging
+				d3.selectAll('.report').remove(); // the listener reacts differently for strict search mode and shows all reports upon closing. lazy remove instead of de-bugging
 				d3.selectAll('div#noteSearch, div#noteBrowse')
 					.style('display', 'inherit')
 					.style('opacity', 0)
@@ -464,7 +534,7 @@ vis.selectbox = (function() {
 			} // collapse tree if selection is empty
 		});
 		
-	};
+	}; // my.init
 
 	return my;
 
@@ -502,7 +572,7 @@ vis.cards = (function() {
 			reports.enter()
 				.append('div')
 					.attr('class', 'report')
-					.attr('id', function(d) { return d.identifier; })
+					.attr('id', function(d) { return spaceLess(d.name) + d.ID; })
 					.style('opacity', 0)
 					.style('background-color', '#fff')
 					.transition()
@@ -516,7 +586,11 @@ vis.cards = (function() {
 					
 			reports.append('h3')
 					.attr('class', 'header2')
-					.html(function(d) { return 'background: ' + d.background_category + ' | work: ' + d.work_category + ' | comes from ' + d.nationality; });
+					.html(function(d) { 
+						return d.alternative_names !== "NA" ?  
+							'type: ' + d.type + ' \u00B7 family: ' + d.family + ' \u00B7 alternative: ' + d.alternative_names : 
+							'type: ' + d.type + ' \u00B7 family: ' + d.family; 
+					});
 
 
 			var buttonList = reports.append('ul')
@@ -527,69 +601,48 @@ vis.cards = (function() {
 					.attr('id', 'browseTree')
 					.html('browse tree');
 	
-				buttonList.append('li')
-					.attr('class', 'buttonTags')
-					.attr('id', 'goToWeb')
-					.html('web');
-	
-			buttonList.append('li')
-					.attr('class', 'buttonTags')
-					.attr('id', 'goToWork')
-					.html('the work');
-
-			buttonList.append('li')
-					.attr('class', 'buttonTags')
-					.attr('id', 'goToTheOneThing')
-					.html('that one thing');
-					
 			buttonList.append('li')
 					.attr('class', 'buttonTags')
 					.attr('id', 'moreInfo')
 					.html('more info');
 
-
-
-
-
-			// reports.append('button')
-			// 		.attr('class', 'goTo')
-			// 		.html('go to report');
+			buttonList.append('li')
+				.attr('class', 'buttonTags')
+				.attr('id', 'readMore')
+				.html('web/source');
 	
-			// reports.append('button')
-			// 		.attr('class', 'browseTree')
-			// 		.html('browse tree');
+			buttonList.append('li')
+					.attr('class', 'buttonTags')
+					.attr('id', 'goodExample')
+					.html('example(s)');
+		
 
-			// reports.append('br'); // so that all elements in the first and the second line can be inline-blocks (necessary to keep headers and buttons on same line but aligned opposite)
+			// image
+			reports.append('img')
+				.attr('src', function(d) { return 'images/graphs/' + d.image_file; })
+				.attr('id', 'graph');
 
-			// reports.append('h3')
-			// 		.attr('class', 'header2')
-			// 		.html(function(d) { return 'background: ' + d.background_category + ' | work: ' + d.work_category + ' | comes from ' + d.nationality; });
-
-			// if (d3.select('.goTo')[0][0] !== null) var goToButtonWidth = d3.select('.goTo')[0][0].clientWidth; // only get if there's an element to avoid error
-					
-			// reports.append('button')
-			// 		.attr('class', 'moreInfo')
-			// 		.html('more info')
-			// 		.style('width', goToButtonWidth + 'px'); // to get the same withd as the button above (.goTo)
-	
-			
-
-
-
+			// description
 			reports.append('p')
 					.attr('class', 'description')
-					.html(function(d) { return d.description_long; });
+					.html(function(d) { return d.description; });
 	
-			var taglist = reports.append('ul')
-					.attr('class', 'taglist');
 
-			taglist.selectAll('.reportTags')
-				.data(function(d) { return d.tags })
-					.enter()
-				.append('li')
+			// tags		
+			var tags = reports.append('ul')
+				.attr('class', 'taglist');
+
+			tags.selectAll('.reportTags')
+				.data(function(d) { log(d.cardTags); return d.cardTags; })
+					.enter().append('li')
 					.attr('class', 'reportTags')
-					.html(function(dd) { return dd; });
-				
+					.html(function(dd) { log(dd); return dd;});
+
+
+
+
+
+
 			reports.append('p')
 					.attr('class', 'moreInfoText')
 					.attr('id', function(d) { return 'moreInfoText' + d.identifier })

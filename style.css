@@ -284,6 +284,15 @@ h3.header2 {
 	font-size: 1em;
 }
 
+
+img#graph {
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	height: 100px;
+	min-width: 100px;
+}
+
 p.description {
 	line-height: 150%;
 	margin-right: 5%;
@@ -291,12 +300,16 @@ p.description {
 
 ul.taglist,
 ul.buttonlist {
+	clear: left;
 	list-style-type: none;
 	padding-left: 0px;
 }
 
+
+
 li.reportTags,
-li.buttonTags {
+li.buttonTags,
+li.tagHeader {
 	display: inline-block;
 	margin: 2px;
 	padding: 2px 5px;
@@ -304,6 +317,14 @@ li.buttonTags {
 	background-color: #AEA79F;
 	color: #fff;
 }
+
+li.tagHeader {
+	margin-left: 0;
+	padding-left: 0;
+	background-color: transparent;
+	color: #555;
+}
+
 
 li.buttonTags {
 	background-color: #A4BD9E;

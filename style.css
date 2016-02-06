@@ -355,6 +355,22 @@ a:hover {
 }
 
 
+div.tooltip {
+  position: absolute;        
+	display: inline-block;
+	/*max-width: 20vw;*/
+	padding: 5px;             
+  background-color: #fff;
+	border: 1px solid #999;
+	border-radius: 2px;
+	text-align: center;
+  pointer-events: none;
+	opacity: 0;
+	z-index: 2;
+}
+
+
+
 /* tree ----------------------------------------------------------------------------------- */
 
 

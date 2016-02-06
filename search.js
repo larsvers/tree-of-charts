@@ -654,6 +654,48 @@ vis.cards = (function() {
 
 			/* button-listeners and handlers */
 					
+
+			// image hover shows picture in big
+			d3.selectAll('img#graph').on('mouseover', function() {
+
+				// get client width (the browser-safe way)
+				var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+				var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+				// get the image tag code (including inline style to set max-width and max-height)
+				var image = '<img src=' + this.src + ' style="max-width:'+ w/2 + 'px; max-height:' + (h * 0.9) + 'px">'
+
+				// tooltip to always be 5% from top and a maximum of 90% tall so that it's always in sight'
+				d3.select('div.tooltip')
+					.style('left', (d3.event.pageX + 20) + 'px')
+					.style('top', '5vh')
+					.html(image)
+					.style('opacity', 0)
+					.transition()
+					.style('opacity', 0.9);
+
+			});
+
+			d3.selectAll('img#graph').on('mousemove', function() {
+
+				// only move horizontally
+				d3.select('div.tooltip')
+					.style('left', (d3.event.pageX + 20) + 'px')
+					.style('top', '5vh');
+					
+
+			});
+
+			d3.selectAll('img#graph').on('mouseout', function() {
+
+				d3.select('div.tooltip')
+					.transition()
+					.style('opacity', 0);
+
+
+			});
+
+
 			// find report in tree
 			d3.selectAll('.header1, header2, #browseTree, .description').on('mousedown', function(e){
     

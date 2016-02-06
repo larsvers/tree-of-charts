@@ -6,6 +6,7 @@
 var log = console.log.bind(console); // snippet log
 var dir = console.dir.bind(console); // snippet dir
 var spaceLess = function(x) { return x.replace(/[^A-Za-z]/g,''); } // remove all non-letter characters
+var arrToStr = function(x) { return x.toString().replace(/,|,\s/g,' \u00B7 '); } // used e.g. in more info area
 	
 // ! not used, replaced with lodash's _.intersection !
 // Prototype adjustments: compare 2 arrays and return true if there are any matches (*this* is the Array to call it on)
@@ -572,14 +573,14 @@ vis.cards = (function() {
 			reports.enter()
 				.append('div')
 					.attr('class', 'report')
-					.attr('id', function(d) { return spaceLess(d.name) + d.ID; })
+					.attr('id', function(d) { return spaceLess(d.name); })
 					.style('opacity', 0)
 					.style('background-color', '#fff')
 					.transition()
 					.style('opacity', 1)
 					.style('background-color', function(d,i) { return i%2 === 0 ? '#F7F7F7' : '#fff' });
 			
-
+			// headers
 			reports.append('h1')
 					.attr('class', 'header1')
 					.html(function(d) { return d.name; });
@@ -588,11 +589,12 @@ vis.cards = (function() {
 					.attr('class', 'header2')
 					.html(function(d) { 
 						return d.alternative_names !== "NA" ?  
-							'type: ' + d.type + ' \u00B7 family: ' + d.family + ' \u00B7 alternative: ' + d.alternative_names : 
-							'type: ' + d.type + ' \u00B7 family: ' + d.family; 
+							'Type: ' + d.type + ' \u00B7 Family: ' + d.family + ' \u00B7 Alternative: ' + d.alternative_names : 
+							'Type: ' + d.type + ' \u00B7 Family: ' + d.family; 
 					});
 
 
+			// buttons
 			var buttonList = reports.append('ul')
 				.attr('class', 'taglist');
 
@@ -608,7 +610,7 @@ vis.cards = (function() {
 
 			buttonList.append('li')
 				.attr('class', 'buttonTags')
-				.attr('id', 'readMore')
+				.attr('id', 'source')
 				.html('web/source');
 	
 			buttonList.append('li')
@@ -624,31 +626,28 @@ vis.cards = (function() {
 
 			// description
 			reports.append('p')
-					.attr('class', 'description')
-					.html(function(d) { return d.description; });
+				.attr('class', 'description')
+				.html(function(d) { return d.description; });
 	
-
-			// tags		
-			var tags = reports.append('ul')
-				.attr('class', 'taglist');
-
-			tags.selectAll('.reportTags')
-				.data(function(d) { log(d.cardTags); return d.cardTags; })
-					.enter().append('li')
-					.attr('class', 'reportTags')
-					.html(function(dd) { log(dd); return dd;});
-
-
-
-
-
-
+			// paragraph element underneath the floated image to clear the float
+			// this way the image doesn't overlap the container in any case
+			reports.append('p')
+				.attr('class', 'clearFix')
+				.html('');
+	
+			// more info
 			reports.append('p')
 					.attr('class', 'moreInfoText')
-					.attr('id', function(d) { return 'moreInfoText' + d.identifier })
-					.html(function(d) { return 'twitter: <a href="' + d.twitter_link + '" target="_blank">' + d.twitter + '</a>'
+					.attr('id', function(d) { return 'moreInfoText' + spaceLess(d.name); })
+					.html(function(d) {
+						return '<strong>What</strong> data: ' + arrToStr(d.whatData)
+						+ ' \u007C <strong>What</strong> scale: ' + arrToStr(d.whatScale)
+						+ ' \u007C <strong>What</strong> scale: ' + arrToStr(d.whatScale)
+						+ ' \u007C <strong>Why</strong> targets: ' + arrToStr(d.whyTargets)
+						+ ' \u007C <strong>Why</strong> actions: ' + arrToStr(d.whyActions)
+						+ ' \u007C <strong>How</strong> encoding: ' + arrToStr(d.howMarksChannels)
 						+ '</br></br>'
-						+ 'in short: ' + d.description_short + ' | works for: ' + d.works_for;
+						+ '<strong>History</strong>: ' + d.history;
 					});
 
 
@@ -671,30 +670,10 @@ vis.cards = (function() {
 			});
 
 			// go to web
-			d3.selectAll('#goToWeb').on('mousedown', function(e){
+			d3.selectAll('#source').on('mousedown', function(e){
 			
 				// open report in new window
-				var url = e.web;
-				var win = window.open(url, '_blank');
-				win ? win.focus() : alert('please allow pop-ups for this site'); // this needs to get tested
-			
-			});
-
-			// go to portfolio/work
-			d3.selectAll('#goToWork').on('mousedown', function(e){
-			
-				// open report in new window
-				var url = e.work;
-				var win = window.open(url, '_blank');
-				win ? win.focus() : alert('please allow pop-ups for this site'); // this needs to get tested
-			
-			});
-
-			// go to portfolio/work
-			d3.selectAll('#goToTheOneThing').on('mousedown', function(e){
-			
-				// open report in new window
-				var url = e.that_one_thing;
+				var url = e.source;
 				var win = window.open(url, '_blank');
 				win ? win.focus() : alert('please allow pop-ups for this site'); // this needs to get tested
 			
@@ -703,24 +682,28 @@ vis.cards = (function() {
 			// show more info
 			d3.selectAll('#moreInfo').on('mousedown', function(d) {
 
-				if (d3.select('#moreInfoText' + d.identifier).style('display') === 'none') {
+				if (d3.select('#moreInfoText' + spaceLess(d.name)).style('display') === 'none') {
+				
 					d3.select(this).html('less info'); // toggle name
-					d3.select('#moreInfoText' + d.identifier)
+					d3.select('#moreInfoText' + spaceLess(d.name))
 						.style('display', 'inherit')
 						.style('font-size', 1e-6 + 'px')
 						.transition()
 						.style('font-size', '1em'); // toggle display
+				
 				} else {
+				
 					d3.select(this).html('more info'); // toggle name
-					d3.select('#moreInfoText' + d.identifier)
+					d3.select('#moreInfoText' + spaceLess(d.name))
 						.style('font-size', '1em')
 						.transition()
 						.style('font-size', 1e-6 + 'px'); // toggle display
 
 					setTimeout(function(){
-						d3.select('#moreInfoText' + d.identifier)
+						d3.select('#moreInfoText' + spaceLess(d.name))
 							.style('display', 'none');
 					}, 250); // wait until transition has finished before setting display to none
+				
 				} // toggle based on display property
 
 			});

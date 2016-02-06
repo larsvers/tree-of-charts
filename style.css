@@ -293,6 +293,10 @@ img#graph {
 	min-width: 100px;
 }
 
+p.clearFix {
+	clear: both;
+}
+
 p.description {
 	line-height: 150%;
 	margin-right: 5%;

@@ -1,5 +1,4 @@
-/* dataindex js | v.7.0.4 | 1/7/15 | lv */
-/* width of svg adjusted (to get the container as wide as possible w/o x-scrollbars) */
+/* tree of charts js | v.0.1.0 | 9/2/16 | lv */
 
 
 // utility ---------------------------------------------------------------------------------------------------------
@@ -18,8 +17,6 @@ Array.prototype.anymatch = function(arr) {
     return result;
 };
 
-
-
 var util = {};
 util.unik = function(arr) { // http://jszen.com/best-way-to-get-unique-values-of-an-array-in-javascript.7.html
 	var n = {}, r = [];
@@ -31,7 +28,6 @@ util.unik = function(arr) { // http://jszen.com/best-way-to-get-unique-values-of
 	}
 	return r;
 };
-
 
 
 var vis = vis || {}; // top namespace
@@ -450,7 +446,6 @@ d3.tsv('data/data.tsv', function(err, data){
 
 	});
 
-
 	d3.selectAll('.setTreeStructure').on('mouseover', function() {
 
 		// only show quick info of the respective button during hover. Back to active button after mouseout.
@@ -579,7 +574,6 @@ vis.selectbox = (function() {
 
 
 
-
 // report cards ------------------------------------------------------------------------------------------------------
 
 vis.cards = (function() {
@@ -623,11 +617,16 @@ vis.cards = (function() {
 			reports.append('h3')
 					.attr('class', 'header2')
 					.html(function(d) { 
-						return d.alternative_names !== "NA" ?  
-							'Type: ' + d.type + ' \u00B7 Family: ' + d.family + ' \u00B7 Alternative: ' + d.alternative_names : 
-							'Type: ' + d.type + ' \u00B7 Family: ' + d.family; 
+						return 'Type: ' + d.type 
+							+ ' \u00B7 Family: ' + d.family 
+							+ ( d.alternative_names === "NA" ? '' : ' \u00B7 Alternative: ' + d.alternative_names );
 					});
 
+
+							// d.alternative_names !== "NA" ?  
+							// 'Type: ' + d.type + ' \u00B7 Family: ' + d.family + ' \u00B7 Alternative: ' + d.alternative_names : 
+							// 'Type: ' + d.type + ' \u00B7 Family: ' + d.family; 
+							
 
 			// buttons
 			var buttonList = reports.append('ul')
@@ -677,17 +676,15 @@ vis.cards = (function() {
 						+ ' \u007C <strong>Why</strong> actions: ' + arrToStr(d.whyActions)
 						+ ' \u007C <strong>How</strong> encoding: ' + arrToStr(d.howMarksChannels)
 						+ ( d.aid === 'NA' ? '' : '</br></br><strong>Suggested interactions</strong>: ' + arrToStr(d.aid) )
+						+ ( d.history === 'NA' ? '' : '</br></br><strong>History</strong>: ' + d.history )
 						+ '</br></br>'
-						+ ( d.history === 'NA' ? '' : '<strong>History</strong>: ' + d.history )
-						+ ( d.image_source === 'NA' ? '' : '</br><strong>Image source</strong>: ' + d.image_source );
+						+ '<strong>Image</strong>: ' + d.image_source;
 					});
 
 
 
-			/* button-listeners and handlers */
-					
 
-			// d3.selectAll('li.')
+			/* button-listeners and handlers */
 
 			// find report in tree
 			d3.selectAll('.header1, .header2, #browseTree, .description').on('mousedown', function(e){
@@ -695,7 +692,6 @@ vis.cards = (function() {
 					vis.tree.clearAll(gvis.root); // collapse data
 			    vis.tree.expandAll(gvis.root); // expand data
 			    vis.tree.update(gvis.root); // show tree
-					// !!! to sort out when we get there, but probably best to pass a 'search' object with searchField, searchText and maybe the data ?
 			    gvis.searchField = "d.identifier"; // find the right node(s)...
 			    gvis.searchText = e.identifier;
 			    vis.tree.searchTree(gvis.root);
@@ -752,7 +748,7 @@ vis.cards = (function() {
 
 				// get the image tag code (including inline style to set max-width and max-height) and the source
 				var image = '<img src=' + this.src + ' style="min-width: 200px; max-width:'+ w/2 + 'px; max-height:' + (h * 0.9) + 'px">'
-				var source = '</br></br>Note: ' + d.image_note + '</br>';
+				var source = '</br></br>' + d.image_note + '</br>';
 				var html = d.image_note === 'NA' ? image : image + source;
 
 				// tooltip to always be 5% from top and a maximum of 90% tall so that it's always in sight'
@@ -770,7 +766,7 @@ vis.cards = (function() {
 				// only move horizontally
 				d3.select('div.tooltip')
 					.style('left', (d3.event.pageX + 20) + 'px')
-					.style('top', '5vh');
+					.style('top', '1vh');
 
 			});
 			d3.selectAll('img#graph').on('mouseout', function() {
@@ -780,10 +776,6 @@ vis.cards = (function() {
 					.style('opacity', 0);
 
 			}); // image hover
-
-
-					
-
 			
 	} // vis.cards.updateCards()
 
@@ -1055,7 +1047,6 @@ vis.tree = (function() {
 	    d.x0 = d.x;
 	    d.y0 = d.y;
 	  });
-	
 
 
 	} // update function ?

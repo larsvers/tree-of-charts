@@ -98,7 +98,9 @@ d3.tsv('data/data.tsv', function(err, data){
 	tagobjects.d = util.searchdataTransform('number_of_variables_rough', 'What | Number of variables');
 	tagobjects.e = util.searchdataTransform('categories_wo_aid_sum', 'What | Number of categories');
 	tagobjects.f = util.searchdataTransform('values_sum', 'What | Number of values');
+	
 	tagobjects.g = util.searchdataTransform('data_type_sum_long', 'What | Variable type');
+	
 	tagobjects.h = util.searchdataTransform('target_usage_munzner_all', 'Why | General target of visual (Munzner)');
 	tagobjects.i = util.searchdataTransform('target_specific_munzner', 'Why | Specific target of visual (Munzner)');
 	tagobjects.j = util.searchdataTransform('target_usage_alternative_all', 'Why | General target of visual (alternative)');
@@ -115,7 +117,7 @@ d3.tsv('data/data.tsv', function(err, data){
 		searchData.push(tagobjects[key]);
 	}
 
-	// log('searchData', searchData);
+	log('searchData', searchData);
 
 	
 	// report card data -----------------------------------------
@@ -134,7 +136,9 @@ d3.tsv('data/data.tsv', function(err, data){
 			
 			// turn comma-seperated lists into arrays
 			reportData[key].data_type = reportData[key].data_type.split(', ');
-			
+						
+			reportData[key].data_type_sum_long = reportData[key].data_type_sum_long.split(', ');
+
 			reportData[key].target_usage_munzner_all = reportData[key].target_usage_munzner_all.split(', ');
 
 			reportData[key].target_specific_munzner = reportData[key].target_specific_munzner.split(', ');
@@ -193,7 +197,7 @@ d3.tsv('data/data.tsv', function(err, data){
 				[reportData[key].number_of_variables_rough],
 				[reportData[key].categories_wo_aid_sum],
 				[reportData[key].values_sum],
-				[reportData[key].data_type_sum_long],
+				reportData[key].data_type_sum_long,
 				reportData[key].target_usage_munzner_all,
 				reportData[key].target_specific_munzner,
 				reportData[key].target_usage_alternative_all,
@@ -235,7 +239,6 @@ d3.tsv('data/data.tsv', function(err, data){
 		if (l === 2) {
 
 			dataNest = d3.nest()
-				// .key(function(d) { return d[arr[0]]; }).sortKeys(d3.ascending)
 				.key(function(d) { return d[arr[0]]; }).sortKeys(order[0].length === 0 ? d3.ascending : function(a,b) { return order[0].indexOf(a) - order[0].indexOf(b); })
 				.key(function(d) { return d[arr[1]]; }).sortKeys(order[1].length === 0 ? d3.ascending : function(a,b) { return order[1].indexOf(a) - order[1].indexOf(b); })
 				.entries(data);
@@ -326,16 +329,17 @@ d3.tsv('data/data.tsv', function(err, data){
 
 	var treeDataNames = [
 	
-		{ data1: 'across', data2: 'c', label: 'scale \u00B7 action', id: 'scaleaction' },
-		{ data1: 'across', data2: 'b', label: 'action \u00B7 scale \u00B7 type', id: 'actionscaletype' },
-		{ data1: 'across', data2: 'a', label: 'data \u00B7 scale \u00B7 usage', id: 'datascaleusage' },
-		{ data1: 'within', data2: 'e', label: 'what type', id: 'whatdata' },
-		{ data1: 'within', data2: 'd', label: 'how', id: 'whatdata' },
-		{ data1: 'within', data2: 'c', label: 'why', id: 'why' },
-		{ data1: 'within', data2: 'b', label: 'what scale', id: 'whatscale' },
-		{ data1: 'within', data2: 'a', label: 'what data', id: 'whatdata' }
+		{ prop1: 'across', prop2: 'c', label: 'scale \u00B7 action', id: 'scaleaction', info: 'Number of values the visual can show \u2192 What do we want to find \u2192 What do we want to do' },
+		{ prop1: 'across', prop2: 'b', label: 'action \u00B7 scale \u00B7 type', id: 'actionscaletype', info: 'Key analysis actions \u2192 Chart family \u2192 Number of variables at hands' },
+		{ prop1: 'across', prop2: 'a', label: 'data \u00B7 scale \u00B7 usage', id: 'datascaleusage', info: 'Type of data \u2192 Number of variables at hands \u2192 Main target of interest' },
+		{ prop1: 'within', prop2: 'e', label: 'what type', id: 'whattype', info: '<strong>Chart categories</strong>: Type of visual \u2192 Chart family' },
+		{ prop1: 'within', prop2: 'd', label: 'how', id: 'how', info: '<strong>How are we building the visual</strong>: Marks we use \u2192 Visual channels we use for encoding' },
+		{ prop1: 'within', prop2: 'c', label: 'why', id: 'why', info: '<strong>Why are we building the visual</strong>: Main target of interest \u2192 High level analysis aim \u2192 Specific analysis aim' },
+		{ prop1: 'within', prop2: 'b', label: 'what scale', id: 'whatscale', info: '<strong>How much data can we show</strong>: Number of variables \u2192 Number of categories \u2192 Number of values' },
+		{ prop1: 'within', prop2: 'a', label: 'what data', id: 'whatdata', info: '<strong>What data have we got</strong>: Type of dataset \u2192 Type of data' }
 		
 	];
+
 
 
 	// variables for tree that require custom order (3rd argument to setTreeStructure)
@@ -366,7 +370,6 @@ d3.tsv('data/data.tsv', function(err, data){
 	treeData.across.c = setTreeStructure(['values_sum', 'action_search', 'action_query'], reportData, [values_sum_order,[],[]]);
 	
 
-
 	// set buttons
 	d3.select('div#containerTree').selectAll('.buttons')
 		.data(treeDataNames)
@@ -376,11 +379,22 @@ d3.tsv('data/data.tsv', function(err, data){
 		.attr('id', function(d) { return d.id; })
 		.html(function(d) { return d.label; });
 
+
 	
 	// needs to be in Object for d3.tree() - - -
 	var dataTree = {};
 	dataTree.key = "Chart tree";
-	dataTree.children = treeData.within.a;
+	
+
+	// initialise state
+	dataTree.children = treeData.within.a; // initial state for tree
+
+	d3.select('button#whatdata').classed('active', true); // initial state for tree button
+
+	var info = treeDataNames[7].info; // set initial state for tree hierarchy info
+
+	d3.select('div.tooltip#treeStructure').html(info); // set initial state for tree hierarchy info
+
 	
 	log('dataTree', dataTree);
 		
@@ -415,21 +429,42 @@ d3.tsv('data/data.tsv', function(err, data){
 	// add button handlers
 	d3.selectAll('.setTreeStructure').on('mousedown', function() {
 
-		var self = d3.select(this),
-				data1 = self.data()[0].data1,
-				data2 = self.data()[0].data2,
-				data = treeData[data1][data2];
+		// style
+		d3.selectAll('button.setTreeStructure').classed('active', false);
+		d3.select(this).classed('active', true);
 
-		// log(data);
+		// info text
+		info = d3.select(this).data()[0].info;
+		d3.select('div.tooltip#treeStructure').html(info);
+
+		// data
+		var self = d3.select(this),
+				prop1 = self.data()[0].prop1,
+				prop2 = self.data()[0].prop2,
+				data = treeData[prop1][prop2];
 
 		dataTree.children = data;
 		vis.tree.clearAll(gvis.root);
     gvis.root.children.forEach(vis.tree.collapse);
     vis.tree.update(gvis.root);
 
+	});
 
-	}); //
 
+	d3.selectAll('.setTreeStructure').on('mouseover', function() {
+
+		// only show quick info of the respective button during hover. Back to active button after mouseout.
+		var infoPrelim = d3.select(this).data()[0].info;
+		d3.select('div.tooltip#treeStructure').html(infoPrelim);
+
+	});
+
+	d3.selectAll('.setTreeStructure').on('mouseout', function() {
+
+		// snap info back to active button
+		d3.select('div.tooltip#treeStructure').html(info);
+
+	});
 
 
 }); // data load and prep
@@ -504,7 +539,7 @@ vis.selectbox = (function() {
 					return intersectLength === tagsSelected.length; // 'strict' mode: if all chosen tags can be found in the report's tag-array
 				}
 
-			}); // return only the data-index-members that match the selected tags.
+			}); // return only the report-elements that match the selected tags.
 
 			vis.cards.updateCards(reports);
 		} // showSelectedReports
@@ -573,7 +608,7 @@ vis.cards = (function() {
 			reports.enter()
 				.append('div')
 					.attr('class', 'report')
-					.attr('id', function(d) { return spaceLess(d.name); })
+					.attr('id', function(d) { return d.identifier; })
 					.style('opacity', 0)
 					.style('background-color', '#fff')
 					.transition()
@@ -611,12 +646,7 @@ vis.cards = (function() {
 			buttonList.append('li')
 				.attr('class', 'buttonTags')
 				.attr('id', 'source')
-				.html('web/source');
-	
-			buttonList.append('li')
-					.attr('class', 'buttonTags')
-					.attr('id', 'goodExample')
-					.html('example(s)');
+				.html('web \u00B7 source');
 		
 
 			// image
@@ -635,19 +665,21 @@ vis.cards = (function() {
 				.attr('class', 'clearFix')
 				.html('');
 	
-			// more info
+
+			// more info (\u007C = |)
 			reports.append('p')
 					.attr('class', 'moreInfoText')
-					.attr('id', function(d) { return 'moreInfoText' + spaceLess(d.name); })
+					.attr('id', function(d) { return 'moreInfoText' + d.identifier; })
 					.html(function(d) {
 						return '<strong>What</strong> data: ' + arrToStr(d.whatData)
-						+ ' \u007C <strong>What</strong> scale: ' + arrToStr(d.whatScale)
 						+ ' \u007C <strong>What</strong> scale: ' + arrToStr(d.whatScale)
 						+ ' \u007C <strong>Why</strong> targets: ' + arrToStr(d.whyTargets)
 						+ ' \u007C <strong>Why</strong> actions: ' + arrToStr(d.whyActions)
 						+ ' \u007C <strong>How</strong> encoding: ' + arrToStr(d.howMarksChannels)
+						+ ( d.aid === 'NA' ? '' : '</br></br><strong>Suggested interactions</strong>: ' + arrToStr(d.aid) )
 						+ '</br></br>'
-						+ '<strong>History</strong>: ' + d.history;
+						+ ( d.history === 'NA' ? '' : '<strong>History</strong>: ' + d.history )
+						+ ( d.image_source === 'NA' ? '' : '</br><strong>Image source</strong>: ' + d.image_source );
 					});
 
 
@@ -655,49 +687,10 @@ vis.cards = (function() {
 			/* button-listeners and handlers */
 					
 
-			// image hover shows picture in big
-			d3.selectAll('img#graph').on('mouseover', function() {
-
-				// get client width (the browser-safe way)
-				var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-				var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-
-				// get the image tag code (including inline style to set max-width and max-height)
-				var image = '<img src=' + this.src + ' style="max-width:'+ w/2 + 'px; max-height:' + (h * 0.9) + 'px">'
-
-				// tooltip to always be 5% from top and a maximum of 90% tall so that it's always in sight'
-				d3.select('div.tooltip')
-					.style('left', (d3.event.pageX + 20) + 'px')
-					.style('top', '5vh')
-					.html(image)
-					.style('opacity', 0)
-					.transition()
-					.style('opacity', 0.9);
-
-			});
-
-			d3.selectAll('img#graph').on('mousemove', function() {
-
-				// only move horizontally
-				d3.select('div.tooltip')
-					.style('left', (d3.event.pageX + 20) + 'px')
-					.style('top', '5vh');
-					
-
-			});
-
-			d3.selectAll('img#graph').on('mouseout', function() {
-
-				d3.select('div.tooltip')
-					.transition()
-					.style('opacity', 0);
-
-
-			});
-
+			// d3.selectAll('li.')
 
 			// find report in tree
-			d3.selectAll('.header1, header2, #browseTree, .description').on('mousedown', function(e){
+			d3.selectAll('.header1, .header2, #browseTree, .description').on('mousedown', function(e){
     
 					vis.tree.clearAll(gvis.root); // collapse data
 			    vis.tree.expandAll(gvis.root); // expand data
@@ -724,10 +717,10 @@ vis.cards = (function() {
 			// show more info
 			d3.selectAll('#moreInfo').on('mousedown', function(d) {
 
-				if (d3.select('#moreInfoText' + spaceLess(d.name)).style('display') === 'none') {
+				if (d3.select('#moreInfoText' + d.identifier).style('display') === 'none') {
 				
 					d3.select(this).html('less info'); // toggle name
-					d3.select('#moreInfoText' + spaceLess(d.name))
+					d3.select('#moreInfoText' + d.identifier)
 						.style('display', 'inherit')
 						.style('font-size', 1e-6 + 'px')
 						.transition()
@@ -736,19 +729,59 @@ vis.cards = (function() {
 				} else {
 				
 					d3.select(this).html('more info'); // toggle name
-					d3.select('#moreInfoText' + spaceLess(d.name))
+					d3.select('#moreInfoText' + d.identifier)
 						.style('font-size', '1em')
 						.transition()
 						.style('font-size', 1e-6 + 'px'); // toggle display
 
 					setTimeout(function(){
-						d3.select('#moreInfoText' + spaceLess(d.name))
+						d3.select('#moreInfoText' + d.identifier)
 							.style('display', 'none');
 					}, 250); // wait until transition has finished before setting display to none
 				
 				} // toggle based on display property
 
 			});
+
+			// image hover shows picture in big
+			d3.selectAll('img#graph').on('mouseover', function(d) {
+
+				// get client width (the browser-safe way)
+				var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+				var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+				// get the image tag code (including inline style to set max-width and max-height) and the source
+				var image = '<img src=' + this.src + ' style="min-width: 200px; max-width:'+ w/2 + 'px; max-height:' + (h * 0.9) + 'px">'
+				var source = '</br></br>Note: ' + d.image_note + '</br>';
+				var html = d.image_note === 'NA' ? image : image + source;
+
+				// tooltip to always be 5% from top and a maximum of 90% tall so that it's always in sight'
+				d3.select('div.tooltip')
+					.style('left', (d3.event.pageX + 20) + 'px')
+					.style('top', '5vh')
+					.html(html)
+					.style('opacity', 0)
+					.transition()
+					.style('opacity', 0.9);
+
+			});
+			d3.selectAll('img#graph').on('mousemove', function() {
+
+				// only move horizontally
+				d3.select('div.tooltip')
+					.style('left', (d3.event.pageX + 20) + 'px')
+					.style('top', '5vh');
+
+			});
+			d3.selectAll('img#graph').on('mouseout', function() {
+
+				d3.select('div.tooltip')
+					.transition()
+					.style('opacity', 0);
+
+			}); // image hover
+
+
 					
 
 			
@@ -791,7 +824,7 @@ vis.tree = (function() {
 
 	//===============================================
 	my.clearAll = function(d) {
-	    d.class = "";
+		  d.class = "";
 	    if (d.children)
 	        d.children.forEach(my.clearAll);
 	    else if (d._children)
@@ -920,9 +953,10 @@ vis.tree = (function() {
 
 	  // Enter any new nodes at the parent's previous position.
 	  var nodeEnter = node.enter().append("g")
-	      .attr("class", "node")
+	      .classed('node', true)
 	      .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
 				.on("click", toggle); // moves child objects into children key 
+
 
 	  nodeEnter.append("circle")
 	      .attr("r", 1e-6)
@@ -957,7 +991,7 @@ vis.tree = (function() {
 	      .attr("r", 4.5)
 	      .style("fill", function(d) {
 	            if (d.class === "found") {
-                return "#437F3F"; // dark green
+                return "#6194F2"; // blue
 								} else if (d._children) {
 	                return "#ccc";
 	            } else {
@@ -966,7 +1000,7 @@ vis.tree = (function() {
         })
         .style("stroke", function(d) {
 	            if (d.class === "found") {
-                return "#437F3F"; // dark green
+                return "#6194F2"; // blue
 	            }
 	        });
 
@@ -993,8 +1027,8 @@ vis.tree = (function() {
 	  link.enter().insert("path", "g")
 	      .attr("class", "link")
 	      .attr("d", function(d) {
-	        var o = {x: source.x0, y: source.y0};
-	        return diagonal({source: o, target: o});
+	        var o = { x: source.x0, y: source.y0 };
+	        return diagonal({ source: o, target: o });
 	      });
 
 	  // Transition links to their new position.
@@ -1003,7 +1037,7 @@ vis.tree = (function() {
 	      .attr("d", diagonal)
 	      .style("stroke", function(d) {
 	            if (d.target.class === "found") {
-                return "#437F3F"; // dark green
+                return "#6194F2"; // blue
 	            }
 	      });
 
@@ -1022,7 +1056,8 @@ vis.tree = (function() {
 	    d.y0 = d.y;
 	  });
 	
-	
+
+
 	} // update function ?
 	
 	return my;

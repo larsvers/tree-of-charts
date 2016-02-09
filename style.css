@@ -40,8 +40,15 @@ link hover: lightsteelblue
 tag-boxes background #AFA79E (brown-grey)
 tag font-color #fff
 
-button background #A4BD9E (matt green)
+
+report cards buttons normal #A9ACB2
+report cards buttons normal #8897B2
+
+tree structure buttons normal #8897B2
+tree structure buttons hover  #7FACFF
+tree structure buttons active #6194F2
 button font-color #fff
+
 
 tree:
 
@@ -130,22 +137,9 @@ div#containerTree {
 	height: 87vh; /* viewport height - read http://snook.ca/archives/html_and_css/vm-vh-units */
 	float: right;
 
-	border: 1px solid #bbb;
+	/*border: 1px solid #bbb;*/
 }
 
-/* not used yet */
-div#tooltip {
-  position: absolute;
-/*	display: inline-block;*/
-	display: none;
-	padding: 5px;    
-  background: #fff;
-  font: bold 10px 'Ubuntu', sans-serif;
-	border: 1px solid #999;
-	border-radius: 2px;
-	text-align: center;
-  pointer-events: none;      
-}
 
 
 /* search --------------------------------------------------------------------------------- */
@@ -210,7 +204,6 @@ div#cards {
 
 /*	border: 1px solid red;*/
 }
-
 
 div#noteSearch {
 	margin-top: 8%;
@@ -284,13 +277,12 @@ h3.header2 {
 	font-size: 1em;
 }
 
-
 img#graph {
 	float: left;
 	margin-right: 10px;
 	margin-bottom: 10px;
 	height: 100px;
-	min-width: 100px;
+	/*min-width: 100px;*/
 }
 
 p.clearFix {
@@ -309,36 +301,38 @@ ul.buttonlist {
 	padding-left: 0px;
 }
 
+/*
+report cards buttons normal #A9ACB2
+buttons normal #8897B2
+buttons hover  #7FACFF
+buttons active #6194F2
+*/
 
-
-li.reportTags,
-li.buttonTags,
-li.tagHeader {
+li.buttonTags{
 	display: inline-block;
 	margin: 2px;
 	padding: 2px 5px;
 	border-radius: .25em;
-	background-color: #AEA79F;
+	background-color: #A9ACB2;
+	cursor: pointer;
+	color: #fff;
+
+/*	background-color: transparent;
+	color: #555;
+	border: 1px solid #8897B2;
+	border-radius: 0px;*/
+}
+
+/*li.buttonTags:hover {
+	background-color: #8897B2;
+	color: #fff;
+	border: 1px solid transparent; 
+}
+*/
+li.buttonTags:hover {
+	background-color: #8897B2;
 	color: #fff;
 }
-
-li.tagHeader {
-	margin-left: 0;
-	padding-left: 0;
-	background-color: transparent;
-	color: #555;
-}
-
-
-li.buttonTags {
-	background-color: #A4BD9E;
-	cursor: pointer;
-}
-
-li.buttonTags:hover {
-	opacity: .8;
-}
-
 
 p.moreInfoText {
 	display: none;
@@ -366,9 +360,18 @@ div.tooltip {
 	text-align: center;
   pointer-events: none;
 	opacity: 0;
-	z-index: 2;
+	z-index: 3;
 }
 
+div.tooltip#treeStructure {
+	right:0.5em;
+	top:87px;
+	border: none;
+	border-top: 1px solid #999;
+	border-radius: initial;
+	opacity: 0.9;
+	z-index: 2;
+}
 
 
 /* tree ----------------------------------------------------------------------------------- */
@@ -378,15 +381,29 @@ button.setTreeStructure {
 	float: right; /*position*/
 	margin-top: 1em; /*position*/
 	margin-right: .5em; /*position*/
-	
 	outline: none;
 	border: none;
 	border-radius: 1px;
-	background: #AABA9E;
+	background: #8897B2;
 	color: #fff;
 	font-family: 'Ubuntu', 'Lucida Grande', sans-serif;
 	cursor: pointer;
 }
+
+button.setTreeStructure:hover {
+
+	background: #7FACFF;
+
+
+}
+
+
+button.setTreeStructure.active {
+
+	background: #6194F2;
+
+}
+
 
 svg#svg {
 }

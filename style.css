@@ -1,6 +1,4 @@
-/* dataindex css | v.7.0.4 | 1/7/15 | lv */
-/* width of svg adjusted (to get the container as wide as possible w/o x-scrollbars) */
-
+/* tree of charts css | v.0.1.0 | 9/2/16 | lv *
 
 /*
 
@@ -12,7 +10,7 @@ structure:
 
 background #fffdff
 color: #555
-header #999 
+header #8897B2 
 borders #bbb 
 
 search:
@@ -37,10 +35,6 @@ border-bottom #bbb
 link non-hover: steelblue
 link hover: lightsteelblue
 
-tag-boxes background #AFA79E (brown-grey)
-tag font-color #fff
-
-
 report cards buttons normal #A9ACB2
 report cards buttons normal #8897B2
 
@@ -59,8 +53,8 @@ circles stroke #999
 circles open fill #fff
 circles closed fill #ccc
 
-circles found stroke #437F3F (dark green)
-circles found fill #437F3F (dark green)
+circles found stroke #6194F2
+circles found fill #6194F2
 
 report name found hover font #aaa
 
@@ -100,10 +94,9 @@ div#container {
 	margin-left: 0; /* together with width key to not have a horizontal scrollbar (overflow: hidden won't work with #header) */
 	width: 99vw;
 	height:94vh;
-	border-top: 2px solid #bbb;
+	border-top: 2px solid #A9ACB2;
 
 /*	border: 1px solid #ccc;*/
-	
 }
 
 div#header {
@@ -116,7 +109,7 @@ div#header p {
 	margin-top: .8%;
 	padding: 0 1em;
 	font-size: 1.5vw;
-	color: #999;
+	color: #A9ACB2;
 	background-color: #FFFFFD;
 
 /*	border: 1px solid #ccc;*/
@@ -175,7 +168,6 @@ div#selectMethod {
 	display: inline-block;
 	width: 18%;
 }
-
 
 button.method {
 	width: 90%;
@@ -250,14 +242,12 @@ div#noteBrowse img {
 	width: 28%;
 }
 
-
 div.report {
 	padding-left: 10px;
 	padding-bottom: 10px;
 
 	border-bottom: 1px solid #bbb;
 }
-
 
 h1.header1,
 h3.header2,
@@ -274,7 +264,7 @@ h1.header1 {
 
 h3.header2 {
 	margin: .5em 0em;
-	font-size: 1em;
+	font-size: 1.1em;
 }
 
 img#graph {
@@ -292,6 +282,7 @@ p.clearFix {
 p.description {
 	line-height: 150%;
 	margin-right: 5%;
+	font-size: 1.1em;
 }
 
 ul.taglist,
@@ -300,13 +291,6 @@ ul.buttonlist {
 	list-style-type: none;
 	padding-left: 0px;
 }
-
-/*
-report cards buttons normal #A9ACB2
-buttons normal #8897B2
-buttons hover  #7FACFF
-buttons active #6194F2
-*/
 
 li.buttonTags{
 	display: inline-block;
@@ -317,18 +301,6 @@ li.buttonTags{
 	cursor: pointer;
 	color: #fff;
 
-/*	background-color: transparent;
-	color: #555;
-	border: 1px solid #8897B2;
-	border-radius: 0px;*/
-}
-
-/*li.buttonTags:hover {
-	background-color: #8897B2;
-	color: #fff;
-	border: 1px solid transparent; 
-}
-*/
 li.buttonTags:hover {
 	background-color: #8897B2;
 	color: #fff;
@@ -347,7 +319,6 @@ a {
 a:hover {
 	color: lightsteelblue;
 }
-
 
 div.tooltip {
   position: absolute;        
@@ -391,19 +362,12 @@ button.setTreeStructure {
 }
 
 button.setTreeStructure:hover {
-
 	background: #7FACFF;
-
-
 }
-
 
 button.setTreeStructure.active {
-
 	background: #6194F2;
-
 }
-
 
 svg#svg {
 }
@@ -442,9 +406,3 @@ svg#svg {
 .reportNode:hover {
 	fill: #aaa;
 }
-
-
-
-
-
-

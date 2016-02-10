@@ -97,6 +97,7 @@ div#container {
 	border-top: 2px solid #A9ACB2;
 
 /*	border: 1px solid #ccc;*/
+	
 }
 
 div#header {
@@ -242,6 +243,7 @@ div#noteBrowse img {
 	width: 28%;
 }
 
+
 div.report {
 	padding-left: 10px;
 	padding-bottom: 10px;
@@ -300,6 +302,7 @@ li.buttonTags{
 	background-color: #A9ACB2;
 	cursor: pointer;
 	color: #fff;
+}
 
 li.buttonTags:hover {
 	background-color: #8897B2;
@@ -347,7 +350,6 @@ div.tooltip#treeStructure {
 
 /* tree ----------------------------------------------------------------------------------- */
 
-
 button.setTreeStructure {
 	float: right; /*position*/
 	margin-top: 1em; /*position*/
@@ -365,9 +367,11 @@ button.setTreeStructure:hover {
 	background: #7FACFF;
 }
 
+
 button.setTreeStructure.active {
 	background: #6194F2;
 }
+
 
 svg#svg {
 }

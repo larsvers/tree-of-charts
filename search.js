@@ -4,8 +4,8 @@
 // utility ---------------------------------------------------------------------------------------------------------
 var log = console.log.bind(console); // snippet log
 var dir = console.dir.bind(console); // snippet dir
-var spaceLess = function(x) { return x.replace(/[^A-Za-z]/g,''); } // remove all non-letter characters
-var arrToStr = function(x) { return x.toString().replace(/,|,\s/g,' \u00B7 '); } // used e.g. in more info area
+var spaceLess = function(x) { return x.replace(/[^A-Za-z]/g,''); }; // remove all non-letter characters
+var arrToStr = function(x) { return x.toString().replace(/,|,\s/g,' \u00B7 '); }; // used e.g. in more info area
 	
 // ! not used, replaced with lodash's _.intersection !
 // Prototype adjustments: compare 2 arrays and return true if there are any matches (*this* is the Array to call it on)
@@ -65,7 +65,7 @@ d3.tsv('data/data.tsv', function(err, data){
 		var arr = [];
 
 		var tagdata = data.map(function(d){
-			return { tags: d[variable] } // function parameter 1
+			return { tags: d[variable] }; // function parameter 1
 		});
 
 		function shove(x) { arr.push(x); } // utility fun: push each element into arr
@@ -81,7 +81,7 @@ d3.tsv('data/data.tsv', function(err, data){
 		
 		return tagobject;
 		
-	} // util.searchdataTransform; input: raw data-index, variable of interest, desired label; output: object in appropriate shape
+	}; // util.searchdataTransform; input: raw data-index, variable of interest, desired label; output: object in appropriate shape
 	// note: this can be moved up to the utility section but we would need to make the original data (here called 'data') available globally. 
 	
 	// decide here which tags should become searchable. 
@@ -183,7 +183,7 @@ d3.tsv('data/data.tsv', function(err, data){
 				reportData[key].whyTargets,
 				reportData[key].whyActions,
 				reportData[key].howMarksChannels
-				)
+				);
 
 			// create list of all searchable tags to display correct report cards 
 			reportData[key].searchTags = _.union(
@@ -312,13 +312,13 @@ d3.tsv('data/data.tsv', function(err, data){
 
 		} else {
 			
-			console.warn('Problem with setTreeStructure()')
+			console.warn('Problem with setTreeStructure()');
 		
 		} // test for the array length and build dataNest accordingly
 
 		return dataNest;
 
-	} // setTreeStructure()
+	}; // setTreeStructure()
 
 	
 	// get the dataset names into an array (object you want to see first in button list needs to be last in array to show up first in view as it gets .appended)
@@ -559,7 +559,7 @@ vis.selectbox = (function() {
 					.style('display', 'inherit')
 					.style('opacity', 0)
 					.transition().duration(500)
-					.style('opacity', .5);
+					.style('opacity', 0.5);
 				d3.select('div#cards')
 					.style('overflow', 'hidden'); // remove scrollbar on pc's
 			} // collapse tree if selection is empty
@@ -607,8 +607,8 @@ vis.cards = (function() {
 					.style('background-color', '#fff')
 					.transition()
 					.style('opacity', 1)
-					.style('background-color', function(d,i) { return i%2 === 0 ? '#F7F7F7' : '#fff' });
-			
+					.style('background-color', function(d,i) { return i%2 === 0 ? '#F7F7F7' : '#fff'; });
+
 			// headers
 			reports.append('h1')
 					.attr('class', 'header1')
@@ -617,9 +617,9 @@ vis.cards = (function() {
 			reports.append('h3')
 					.attr('class', 'header2')
 					.html(function(d) { 
-						return 'Type: ' + d.type 
+						return ( 'Type: ' + d.type 
 							+ ' \u00B7 Family: ' + d.family 
-							+ ( d.alternative_names === "NA" ? '' : ' \u00B7 Alternative: ' + d.alternative_names );
+							+ ( d.alternative_names === "NA" ? '' : ' \u00B7 Alternative: ' + d.alternative_names ) );
 					});
 
 
@@ -670,7 +670,7 @@ vis.cards = (function() {
 					.attr('class', 'moreInfoText')
 					.attr('id', function(d) { return 'moreInfoText' + d.identifier; })
 					.html(function(d) {
-						return '<strong>What</strong> data: ' + arrToStr(d.whatData)
+						return ( '<strong>What</strong> data: ' + arrToStr(d.whatData)
 						+ ' \u007C <strong>What</strong> scale: ' + arrToStr(d.whatScale)
 						+ ' \u007C <strong>Why</strong> targets: ' + arrToStr(d.whyTargets)
 						+ ' \u007C <strong>Why</strong> actions: ' + arrToStr(d.whyActions)
@@ -678,7 +678,7 @@ vis.cards = (function() {
 						+ ( d.aid === 'NA' ? '' : '</br></br><strong>Suggested interactions</strong>: ' + arrToStr(d.aid) )
 						+ ( d.history === 'NA' ? '' : '</br></br><strong>History</strong>: ' + d.history )
 						+ '</br></br>'
-						+ '<strong>Image</strong>: ' + d.image_source;
+						+ '<strong>Image</strong>: ' + d.image_source ); 
 					});
 
 
@@ -747,7 +747,7 @@ vis.cards = (function() {
 				var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 
 				// get the image tag code (including inline style to set max-width and max-height) and the source
-				var image = '<img src=' + this.src + ' style="min-width: 200px; max-width:'+ w/2 + 'px; max-height:' + (h * 0.9) + 'px">'
+				var image = '<img src=' + this.src + ' style="min-width: 200px; max-width:'+ w/2 + 'px; max-height:' + (h * 0.9) + 'px">';
 				var source = '</br></br>' + d.image_note + '</br>';
 				var html = d.image_note === 'NA' ? image : image + source;
 
@@ -777,7 +777,7 @@ vis.cards = (function() {
 
 			}); // image hover
 			
-	} // vis.cards.updateCards()
+	}; // vis.cards.updateCards()
 
 	return my;
 
@@ -812,7 +812,7 @@ vis.tree = (function() {
 	                parent = parent.parent;
 	            }
 	    }
-	}
+	};
 
 	//===============================================
 	my.clearAll = function(d) {
@@ -821,7 +821,7 @@ vis.tree = (function() {
 	        d.children.forEach(my.clearAll);
 	    else if (d._children)
 	        d._children.forEach(my.clearAll);
-	}
+	};
 
 	//===============================================
 	my.collapse = function(d) {
@@ -830,7 +830,7 @@ vis.tree = (function() {
 	        d._children.forEach(my.collapse);
 	        d.children = null;
 	    }
-	}
+	};
 
 	//===============================================
 	my.collapseAllNotFound = function(d) {
@@ -842,7 +842,7 @@ vis.tree = (function() {
 		} else 
 	        	d.children.forEach(my.collapseAllNotFound);
 	    }
-	}
+	};
 
 	//===============================================
 	my.expandAll = function(d) {
@@ -852,7 +852,7 @@ vis.tree = (function() {
 	        d._children = null;
 	    } else if (d.children)
 	        d.children.forEach(my.expandAll);
-	}
+	};
 
 	//= private func ================================
 	// Toggle children on click.
@@ -872,9 +872,9 @@ vis.tree = (function() {
 
 
 
-	var width = document.getElementById('containerTree').clientWidth * .9,
-	    height = document.getElementById('containerTree').clientHeight * .9,
-			margin = { top: height * .05, right: width * .1, bottom: height * 1e-6, left: width * .2 };
+	var width = document.getElementById('containerTree').clientWidth * 0.9,
+	    height = document.getElementById('containerTree').clientHeight * 0.9,
+			margin = { top: height * 0.05, right: width * 0.1, bottom: height * 1e-6, left: width * 0.2 };
 		
 	var i = 0,
 	    duration = 600;
@@ -928,7 +928,7 @@ vis.tree = (function() {
 			}
 		}); // listener and handler for opening/closing all nodes
 		
-	}
+	}; // my.init()
 
 	my.update = function(source) {
 
@@ -1049,7 +1049,7 @@ vis.tree = (function() {
 	  });
 
 
-	} // update function ?
+	}; // my.update() ?
 	
 	return my;
 	

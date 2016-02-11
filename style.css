@@ -277,14 +277,19 @@ img#graph {
 	/*min-width: 100px;*/
 }
 
+
+p {
+	font-size: 1.1em;	
+}
+
 p.clearFix {
 	clear: both;
 }
 
+
 p.description {
 	line-height: 150%;
 	margin-right: 5%;
-	font-size: 1.1em;
 }
 
 ul.taglist,

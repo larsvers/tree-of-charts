@@ -748,7 +748,7 @@ vis.cards = (function() {
 
 				// get the image tag code (including inline style to set max-width and max-height) and the source
 				var image = '<img src=' + this.src + ' style="min-width: 200px; max-width:'+ w/2 + 'px; max-height:' + (h * 0.9) + 'px">';
-				var source = '</br></br>' + d.image_note + '</br>';
+				var source = '</br></br>' + d.image_note + '</br></br>';
 				var html = d.image_note === 'NA' ? image : image + source;
 
 				// tooltip to always be 5% from top and a maximum of 90% tall so that it's always in sight'

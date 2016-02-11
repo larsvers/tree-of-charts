@@ -1,6 +1,4 @@
 .DS_store
-data/
-images/
+data/prep/
 fonts/
-lib/
 searchtree.subl*

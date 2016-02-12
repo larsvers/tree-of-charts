@@ -20,7 +20,7 @@ The framework (partly surely amateurlike) applied has been developped by [Tamara
 
 ###### Search
 
-![search-box](https://github.com/larsvers/tree-of-charts/blob/master/images/github/browse.png)
+![](https://github.com/larsvers/tree-of-charts/blob/master/images/github/search-box.png)
 
 Have some data and a vague idea of what you want to show. Search for:
 
@@ -63,7 +63,10 @@ Have some data and a vague idea of what you want to show. Search for:
 
 ###### Chart cards
 
-The chart cards show an image, a quick description to the chart and under *more info* keywords regarding Munzner's visual analysis process, a description of a (potential) table structure, some example variables and historical background where available.
+
+![chart-card](https://github.com/larsvers/tree-of-charts/blob/master/images/github/chart-card.png)
+
+The chart cards show an image, a quick description to the chart and under ![more info](https://github.com/larsvers/tree-of-charts/blob/master/images/github/more-info.png) keywords regarding Munzner's visual analysis process, a description of a (potential) table structure, some example variables and historical background where available.
 
 
 I did not try to re-invent wheels. Although most of the texts are written by myself and a good chunk of visuals are also hand-crafted for the project, a good piece of the material is taken from sources who have already described or produced the charts. It's a medley !
@@ -71,9 +74,15 @@ I did not try to re-invent wheels. Although most of the texts are written by mys
 
 ###### The tree
 
-Click *browse tree* to find your visual in the tree. Once in there you can browse the tree and see what other charts might tickle your pickle.
+![tree](https://github.com/larsvers/tree-of-charts/blob/master/images/github/tree.png)
 
-The tree is also shape-shifting. It can change hierarchy depending on what conecptual journey you opt for to find your chart. You can for example start thinking about your data type, then how many variables you have and finally how many points you want to display. To do so, hit **what data** (a short description of the hierarchy is shown underneath the buttons). Or you might come from less techincal and more conceptual ground thinking about why you want to build a chart (what is your main interest ? what is the aim of the visual analysis ?). There's a tree for that via the **why** button. Best to play around
+Click ![browse tree](https://github.com/larsvers/tree-of-charts/blob/master/images/github/browse.png) to find your visual in the tree. Once in there you can browse the tree and see what other charts might tickle your pickle.
+
+The tree is also shape-shifting. It can change hierarchy depending on what conecptual journey you opt for to find your chart. You can for example start thinking about your data type, then how many variables you have and finally how many points you want to display. 
+
+![tree options](https://github.com/larsvers/tree-of-charts/blob/master/images/github/tree-options.png)
+
+To do so, hit **what data** (a short description of the hierarchy is shown underneath the buttons). Or you might come from less techincal and more conceptual ground thinking about why you want to build a chart (what is your main interest ? what is the aim of the visual analysis ?). There's a tree for that via the **why** button. Best to play around
 
 
 

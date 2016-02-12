@@ -1,0 +1,5 @@
+grab latest xls version
+copy paste table in new file
+save as txt, UTF-16
+save as data.txt
+change .txt to .tsv 

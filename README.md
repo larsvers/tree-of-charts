@@ -5,9 +5,9 @@ On the one hand the tree of charts is a simple visual search engine for differen
 
 The applied framework orders the chart-finding-process along 3 lines:
 
-1. What data have we got ? 
-2. Why are we producing a visual ?
-3. How are we designing it ?
+1. **What** data have we got ? 
+2. **Why** are we producing a visual ?
+3. **How** are we designing it ?
 
 Admittedly the tree has a lot more flexibility and doesn't force anyone to think along this straight line, but these 3 questions are recurring in the descriptions and the tree structure (it's soft education)...
 

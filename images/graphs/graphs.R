@@ -57,7 +57,7 @@ df <- data.frame(group = c("A", "B", "C", "D"), measure = c(4,5,7,2), se = c(0.5
 
 ggplot(df, aes(group, measure, ymin = measure-se, ymax = measure+se)) + 
   geom_point(stat="Identity", aes(col="red")) + 
-  geom_errorbar(width = 0.2) +
+  geom_errorbar(width = 0.2, aes(col="red")) +
   coord_cartesian(ylim = c(0,10))
   
 

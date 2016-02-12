@@ -74,7 +74,7 @@ I did not try to re-invent wheels. Although most of the texts are written by mys
 
 ###### The tree
 
-Click ![browse tree](https://github.com/larsvers/tree-of-charts/blob/master/images/github/browse.png) to find your visual in the tree. Once in there you can browse the tree and see what other charts might tickle your pickle.
+You can either browse the tree freely or click ![browse tree](https://github.com/larsvers/tree-of-charts/blob/master/images/github/browse.png) on the found **chart cards** to find your visual in the tree. Once in there you can browse the tree and see what other charts might tickle your pickle.
 
 ![tree](https://github.com/larsvers/tree-of-charts/blob/master/images/github/tree.png)
 

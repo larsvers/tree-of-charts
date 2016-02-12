@@ -20,7 +20,7 @@ The framework (partly surely amateurlike) applied has been developped by [Tamara
 
 ###### Search
 
-![](https://github.com/larsvers/tree-of-charts/blob/master/images/github/search-box.png)
+![search box](https://github.com/larsvers/tree-of-charts/blob/master/images/github/search-box.png)
 
 Have some data and a vague idea of what you want to show. Search for:
 

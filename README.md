@@ -1,7 +1,7 @@
 ### The Tree of Charts
 ---
 
-On the one hand the tree of charts is a simple visual search engine for different chart types. It has 88 charts dangling of its branches and you can pick them by just searching or browsing the tree. On the other hand it accompanies and focuses the thought-process when moving from raw data to a visual. Often it's great to play around with data and different visuals in your tool of choice, but apart from being a time-save having a solid desgin process in place allows us to build an efficient mental model of visual options. Once we have followed some guidelines and understand the connection between data and their forms better, it's easier and clearly more fun to break the rules where necessary.
+On the one hand the tree of charts is a simple visual search engine for different chart types. It has 88 charts dangling of its branches and you can pick them by just searching or browsing the tree. On the other hand it accompanies and focuses the thought-process when moving from raw data to a visual. Often it's great to play around with data and different visuals in your tool of choice, but apart from being a time-saver having a solid desgin process in place it allows us to build an efficient mental model of visual options. Once we have followed some guidelines and understand the connection between data and their forms better, it's easier and clearly more enjoyable to break the rules where necessary.
 
 The framework applied orders the chart finding process along 3 lines:
 
@@ -39,7 +39,7 @@ Have some data and a vague idea of what you want to show. Search for:
 	* Network
 	* Temporal
 
-* Number of variables in your (long) dataset
+* Number of variables in your ([long/narrow](https://en.wikipedia.org/wiki/Wide_and_narrow_data)) dataset
 	* 1 variable
 	* 2 variables
 	* 3 variables
@@ -61,10 +61,10 @@ Have some data and a vague idea of what you want to show. Search for:
 
 ###### Chart cards
 
-The chart cards show an image, a quick description to the chart and under *more info* keywords regrading Munzner's visual analysis process, a description on (a possible) table structure, some example variables and historical background where available.
+The chart cards show an image, a quick description to the chart and under *more info* keywords regarding Munzner's visual analysis process, a description of a (potential) table structure, some example variables and historical background where available.
 
 
-I did not try to re-invent wheels. Although most of the texts are written by myself and a good chunk of visuals are also hand-crafted for the project, a good piece of the material is taken from sources who have already readily described or produced the charts. It's a medley !
+I did not try to re-invent wheels. Although most of the texts are written by myself and a good chunk of visuals are also hand-crafted for the project, a good piece of the material is taken from sources who have already described or produced the charts. It's a medley !
 
 
 ###### The tree

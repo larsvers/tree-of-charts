@@ -11,7 +11,7 @@ The framework applied orders the chart finding process along 3 lines:
 
 Admittedly the tree has a lot more flexibility and doesn't force anyone to think along this straight line, but these 3 questions are recurring in the descriptions and the tree structure (it's soft education)...
 
-#### Standing on the shoulder of Tamara Munzner
+#### Standing on the shoulders of Tamara Munzner
 
 The framework (partly surely amateurlike) applied has been developped by [Tamara Munzner](https://en.wikipedia.org/wiki/Tamara_Munzner) in her 2014 book [Visualization Analysis and Design](https://www.crcpress.com/Visualization-Analysis-and-Design/Munzner/9781466508910) and leads the interested person through above pipeline of questions to arrive at the right visual idiom (in her case often large-scale visualization systems - in this case relatively standard charts). The above 3 steps are only a brief summary not encapsulating the more elaborate process she describes but for my small brain and this chart- rather than system-focussed project - they suffice.
 

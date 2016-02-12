@@ -82,9 +82,17 @@ The tree is also shape-shifting. It can change hierarchy depending on what conec
 
 ![tree options](https://github.com/larsvers/tree-of-charts/blob/master/images/github/tree-options.png)
 
- Or you might come from less techincal and more conceptual ground thinking about why you want to build a chart (what is your main interest ? what is the aim of the visual analysis ?). There's a tree for that via the **why** button. 
+Or you might come from less techincal and more conceptual ground thinking about why you want to build a chart (what is your main interest ? what is the aim of the visual analysis ?). There's a tree for that via the **why** button. 
 
- Best to play around with really...
+Best to play around with really...
+
+###### Credit
+
+Conceptual credit goes to a number of ressources but mainly [Tamara Munzner](https://www.crcpress.com/Visualization-Analysis-and-Design/Munzner/9781466508910).
+
+Coding credit to Mike Bostock for [D3](https://d3js.org/), [jjzieve](https://bl.ocks.org/jjzieve/a743242f46321491a950) and [select2](https://select2.github.io/)
+
+Image credits belongs to a great number of sources, I have attributed wherever I could. Please let me know, if you find your picture here and want to have it removed or replaces. The picture use in this context seems unproblematic due to the images' fair use for research and educational purposes, however, I am trying to contact all license-owners to ask for usage permission in person.
 
 
 

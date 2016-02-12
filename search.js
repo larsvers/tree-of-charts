@@ -675,6 +675,10 @@ vis.cards = (function() {
 						+ ' \u007C <strong>Why</strong> targets: ' + arrToStr(d.whyTargets)
 						+ ' \u007C <strong>Why</strong> actions: ' + arrToStr(d.whyActions)
 						+ ' \u007C <strong>How</strong> encoding: ' + arrToStr(d.howMarksChannels)
+						+ '</br></br>'
+						+ '<strong>Table structure</strong>: ' + d.table_structure
+						+ '</br></br>'
+						+ '<strong>Example variables</strong>: ' + arrToStr(d.example_variables)
 						+ ( d.aid === 'NA' ? '' : '</br></br><strong>Suggested interactions</strong>: ' + arrToStr(d.aid) )
 						+ ( d.history === 'NA' ? '' : '</br></br><strong>History</strong>: ' + d.history )
 						+ '</br></br>'

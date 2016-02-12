@@ -20,7 +20,7 @@ The framework (partly surely amateurlike) applied has been developped by [Tamara
 
 ###### Search
 
-![search box](https://github.com/larsvers/tree-of-charts/blob/master/images/github/search-box.png)
+![search box](https://github.com/larsvers/tree-of-charts/blob/master/images/github/search.png)
 
 Have some data and a vague idea of what you want to show. Search for:
 
@@ -78,11 +78,11 @@ I did not try to re-invent wheels. Although most of the texts are written by mys
 
 Click ![browse tree](https://github.com/larsvers/tree-of-charts/blob/master/images/github/browse.png) to find your visual in the tree. Once in there you can browse the tree and see what other charts might tickle your pickle.
 
-The tree is also shape-shifting. It can change hierarchy depending on what conecptual journey you opt for to find your chart. You can for example start thinking about your data type, then how many variables you have and finally how many points you want to display. 
+The tree is also shape-shifting. It can change hierarchy depending on what conecptual journey you opt for to find your chart. You can for example start thinking about the type of dataset you have (table? network? etc.) and then what type your data is (quantitative, ordinal, categorical). To do so, hit **what data** (a short description of the hierarchy is shown underneath the buttons):
 
 ![tree options](https://github.com/larsvers/tree-of-charts/blob/master/images/github/tree-options.png)
 
-To do so, hit **what data** (a short description of the hierarchy is shown underneath the buttons). Or you might come from less techincal and more conceptual ground thinking about why you want to build a chart (what is your main interest ? what is the aim of the visual analysis ?). There's a tree for that via the **why** button. Best to play around
+ Or you might come from less techincal and more conceptual ground thinking about why you want to build a chart (what is your main interest ? what is the aim of the visual analysis ?). There's a tree for that via the **why** button. Best to play around with really...
 
 
 

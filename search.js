@@ -675,13 +675,13 @@ vis.cards = (function() {
 						+ ' \u007C <strong>Why</strong> targets: ' + arrToStr(d.whyTargets)
 						+ ' \u007C <strong>Why</strong> actions: ' + arrToStr(d.whyActions)
 						+ ' \u007C <strong>How</strong> encoding: ' + arrToStr(d.howMarksChannels)
-						+ '</br></br>'
+						+ '<p class="break"></p>'
 						+ '<strong>Table structure</strong>: ' + d.table_structure
-						+ '</br></br>'
+						+ '<p class="break"></p>'
 						+ '<strong>Example variables</strong>: ' + arrToStr(d.example_variables)
-						+ ( d.aid === 'NA' ? '' : '</br></br><strong>Suggested interactions</strong>: ' + arrToStr(d.aid) )
-						+ ( d.history === 'NA' ? '' : '</br></br><strong>History</strong>: ' + d.history )
-						+ '</br></br>'
+						+ ( d.aid === 'NA' ? '' : '<p class="break"></p><strong>Suggested interactions</strong>: ' + arrToStr(d.aid) )
+						+ ( d.history === 'NA' ? '' : '<p class="break"></p><strong>History</strong>: ' + d.history )
+						+ '<p class="break"></p>'
 						+ '<strong>Image</strong>: ' + d.image_source ); 
 					});
 
@@ -724,13 +724,13 @@ vis.cards = (function() {
 						.style('display', 'inherit')
 						.style('font-size', 1e-6 + 'px')
 						.transition()
-						.style('font-size', '1em'); // toggle display
+						.style('font-size', '1.1em'); // toggle display
 				
 				} else {
 				
 					d3.select(this).html('more info'); // toggle name
 					d3.select('#moreInfoText' + d.identifier)
-						.style('font-size', '1em')
+						.style('font-size', '1.1em')
 						.transition()
 						.style('font-size', 1e-6 + 'px'); // toggle display
 

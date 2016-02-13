@@ -79,7 +79,6 @@ html {
 
 body {
 	font-family: 'Ubuntu', 'Lucida Grande', sans-serif;
-/*	font-family: 'Nunito', 'Lucida Grande', sans-serif;*/
 	font-size: 11px;		
 	color: #555;
 	background-color: #fffdff;
@@ -256,6 +255,7 @@ h3.header2,
 p.description,
 p.moreInfoText  {
 	color: #555;
+	margin-right: 5%;
 }
 
 h1.header1 {
@@ -277,19 +277,20 @@ img#graph {
 	/*min-width: 100px;*/
 }
 
-
-p {
-	font-size: 1.1em;	
-}
-
 p.clearFix {
 	clear: both;
 }
 
-
-p.description {
+p.description,
+p.moreInfoText {
 	line-height: 150%;
 	margin-right: 5%;
+	font-size: 1.1em;	
+}
+
+p.break {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
 }
 
 ul.taglist,

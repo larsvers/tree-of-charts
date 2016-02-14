@@ -670,19 +670,19 @@ vis.cards = (function() {
 					.attr('class', 'moreInfoText')
 					.attr('id', function(d) { return 'moreInfoText' + d.identifier; })
 					.html(function(d) {
-						return ( '<strong>What</strong> data: ' + arrToStr(d.whatData)
+						return ( '<p class="moreInfoP"><strong>What</strong> data: ' + arrToStr(d.whatData)
 						+ ' \u007C <strong>What</strong> scale: ' + arrToStr(d.whatScale)
 						+ ' \u007C <strong>Why</strong> targets: ' + arrToStr(d.whyTargets)
 						+ ' \u007C <strong>Why</strong> actions: ' + arrToStr(d.whyActions)
-						+ ' \u007C <strong>How</strong> encoding: ' + arrToStr(d.howMarksChannels)
-						+ '<p class="break"></p>'
-						+ '<strong>Table structure</strong>: ' + d.table_structure
-						+ '<p class="break"></p>'
-						+ '<strong>Example variables</strong>: ' + arrToStr(d.example_variables)
-						+ ( d.aid === 'NA' ? '' : '<p class="break"></p><strong>Suggested interactions</strong>: ' + arrToStr(d.aid) )
-						+ ( d.history === 'NA' ? '' : '<p class="break"></p><strong>History</strong>: ' + d.history )
-						+ '<p class="break"></p>'
-						+ '<strong>Image</strong>: ' + d.image_source ); 
+						+ ' \u007C <strong>How</strong> encoding: ' + arrToStr(d.howMarksChannels) + '</p>'
+						// + '<p class="break"></p>'
+						+ '<p class="moreInfoP"><strong>Table structure</strong>: ' + d.table_structure + '</p>'
+						// + '<p class="break"></p>'
+						+ '<p class="moreInfoP"><strong>Example variables</strong>: ' + arrToStr(d.example_variables) + '</p>'
+						+ ( d.aid === 'NA' ? '' : '<p class="moreInfoP"><strong>Suggested interactions</strong>: ' + arrToStr(d.aid) + '</p>' )
+						+ ( d.history === 'NA' ? '' : '<p class="moreInfoP"><strong>History</strong>: ' + d.history + '</p>' )
+						// + '<p class="break"></p>'
+						+ '<p class="moreInfoP"><strong>Image</strong>: ' + d.image_source + '</p>' ); 
 					});
 
 

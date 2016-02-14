@@ -258,6 +258,26 @@ p.moreInfoText  {
 	margin-right: 5%;
 }
 
+p.description,
+p.moreInfoText {
+	line-height: 150%;
+	margin-right: 5%;
+	font-size: 1.1em;	
+}
+
+p.moreInfoP {
+	margin-top: 0.5em;
+	padding-bottom: 0.5em;
+	margin-bottom: 0.5em;
+	border-bottom: 1px dotted #ccc;
+}
+
+p.moreInfoP:last-child {
+	border-bottom: none; 
+	padding-bottom: 0;
+	margin-bottom: 0;
+}
+
 h1.header1 {
 /*	width: 70%; in order to not conflict with buttons */
 	padding: 1em 0em .25em 0em;
@@ -281,12 +301,6 @@ p.clearFix {
 	clear: both;
 }
 
-p.description,
-p.moreInfoText {
-	line-height: 150%;
-	margin-right: 5%;
-	font-size: 1.1em;	
-}
 
 p.break {
 	margin-top: 0.5em;

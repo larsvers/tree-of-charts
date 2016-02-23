@@ -90,7 +90,7 @@ Best to play around with really...
 
 As said, conceptual credit mainly goes to [Tamara Munzner](https://www.crcpress.com/Visualization-Analysis-and-Design/Munzner/9781466508910), as well as numerous other sources considering taxonomies from various angles. 
 
-Here some other great papers considering the topic from a number of angles:
+Here's a short list of papers considering the topic from a number of angles:
 
 * [The Eyes Have It: A Task by Data Type Taxonomy for Information Visualizations](http://www.interactiondesign.us/courses/2011_AD690/PDFs/Shneiderman_1996.pdf) - a taxonomy by data types, by Ben Shneiderman's
 * [A Taxonomy of Visualization Techniques using the Data State Reference Model] (http://www-users.cs.umn.edu/~echi/papers/infovis00/Chi-TaxonomyVisualization.pdf) - a taxonomoy of data transformations by Ed H. Chi
@@ -99,7 +99,7 @@ Here some other great papers considering the topic from a number of angles:
 * [Taxonomy of Visualization Techniques and Systems – Concerns between Users and Developers are Different](https://www.cs.nmt.edu/~viz/papers/Qin_Chengzhi.pdf) by Qin Chengzhi et al.
 * [Rethinking Visualization: A High-Level Taxonomy](http://webhome.cs.uvic.ca/~mtory/publications/infovis04.pdf) - a taxonomy of based on algorithms by Melanie Tory and Torsten Möller.
 
-Similar online projects also allow a fantastic overview. Above all there's the [Datavisualization catalogue](http://www.datavizcatalogue.com/) by [Severino Ribecca](http://www.linkedin.com/pub/severino-ribecca/25/87a/612) and then all the sources from [this gitHub repository](https://github.com/widged/data-for-good/wiki/Visualisation-::-Choosing-a-chart).
+Similar online projects also allow a fantastic overview. Above all there is the [Datavisualization catalogue](http://www.datavizcatalogue.com/) by [Severino Ribecca](http://www.linkedin.com/pub/severino-ribecca/25/87a/612) and then all the sources from [this gitHub repository](https://github.com/widged/data-for-good/wiki/Visualisation-::-Choosing-a-chart).
 
 Coding credit to Mike Bostock for [D3](https://d3js.org/), [jjzieve](https://bl.ocks.org/jjzieve/a743242f46321491a950) and [select2](https://select2.github.io/).
 

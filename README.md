@@ -88,9 +88,22 @@ Best to play around with really...
 
 ###### Credit
 
-Conceptual credit goes to a number of ressources but mainly [Tamara Munzner](https://www.crcpress.com/Visualization-Analysis-and-Design/Munzner/9781466508910).
+Conceptual credit mainly goes to [Tamara Munzner](https://www.crcpress.com/Visualization-Analysis-and-Design/Munzner/9781466508910). But there are numerous other sources considering taxonomies from various angles:
+
+[The Eyes Have It: A Task by Data Type Taxonomy for Information Visualizations](http://www.interactiondesign.us/courses/2011_AD690/PDFs/Shneiderman_1996.pdf) - a taxonomy by data types, by Ben Shneiderman's
+[A Taxonomy of Visualization Techniques using the Data State Reference Model] (http://www-users.cs.umn.edu/~echi/papers/infovis00/Chi-TaxonomyVisualization.pdf) - a taxonomoy of data transformations by Ed H. Chi
+[Watch This: A Taxonomy for Dynamic Data Visualization](http://www.cs.ou.edu/~weaver/academic/publications/cottam-2012a/materials/cottam-2012a.pdf) by Joseph A. Cottam et al.
+[A taxonomy of temporal data visualization techniques](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.122.8704&rep=rep1&type=pdf) by Chaouki Daassi et al.
+[Taxonomy of Visualization Techniques and Systems – Concerns between Users and Developers are Different](https://www.cs.nmt.edu/~viz/papers/Qin_Chengzhi.pdf) by Qin Chengzhi et al.
+[Rethinking Visualization: A High-Level Taxonomy](http://webhome.cs.uvic.ca/~mtory/publications/infovis04.pdf) - a taxonomy of based on algorithms by Melanie Tory and Torsten Möller.
+
+Similar online projects also allow a fantastic overview. Above all there's the (Datavisualization catalogue)[http://www.datavizcatalogue.com/] by [Severino Ribecca](http://www.linkedin.com/pub/severino-ribecca/25/87a/612) and then all the sources from [this gitHub repository](https://github.com/widged/data-for-good/wiki/Visualisation-::-Choosing-a-chart).
 
 Coding credit to Mike Bostock for [D3](https://d3js.org/), [jjzieve](https://bl.ocks.org/jjzieve/a743242f46321491a950) and [select2](https://select2.github.io/).
+
+Information credit stretches to many people and sources whose books, blogs, talks and seminars I read and visited. Edward Tufte, Jeffrey Heer, Mike Bostock, Nathan Yau, Kaiser Fung, Stephen Few for numerous examples and critiques. 
+
+
 
 Image credit belongs to a great number of sources, I have attributed wherever I could. Please let me know, if you find your image here and want to have it removed or replaced. The picture use in this context seems unproblematic due to the images' fair use for research and educational purposes, however, please raise your hand if you feel any images are inappropriate used.
 

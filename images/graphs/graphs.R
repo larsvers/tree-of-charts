@@ -11,9 +11,6 @@ df2 <- df[order(df$b),]
 df2$b2[df2$b2 == 1] <- 2
 df2$b2[df2$b2 == 0] <- 1
 
-3000/70
-
-
 
 library(ggplot2)
 

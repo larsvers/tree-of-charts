@@ -20,7 +20,7 @@ The framework (partly surely amateur-like) applied has been developped by [Tamar
 
 ###### Search
 
-![search box](https://github.com/larsvers/tree-of-charts/blob/master/images/github/search.png)
+![search box](https://github.com/larsvers/tree-of-charts/blob/master/images/github/tree_of_charts_search.png)
 
 Have some data and a vague idea of what you want to show. Search for:
 
@@ -64,9 +64,9 @@ Have some data and a vague idea of what you want to show. Search for:
 ###### Chart cards
 
 
-![chart-card](https://github.com/larsvers/tree-of-charts/blob/master/images/github/chart-card.png)
+![chart-card](https://github.com/larsvers/tree-of-charts/blob/master/images/github/tree_of_charts_chart_card.png)
 
-The chart cards show an image, a quick description to the chart and under ![more info](https://github.com/larsvers/tree-of-charts/blob/master/images/github/more-info.png) you'll find keywords to Munzner's process, a description of a (potential) table structure, some example variables and historical background where available.
+The chart cards show an image, a quick description to the chart and under ![more info](https://github.com/larsvers/tree-of-charts/blob/master/images/github/tree_of_charts_more_info.png) you'll find keywords to Munzner's process, a description of a (potential) table structure, some example variables and historical background where available.
 
 
 I did not try to re-invent wheels. Although most of the texts are written by myself and a good chunk of visuals are also hand-crafted in D3js, Tableau, Excel and R, a good piece of the material is taken from sources who have already described or produced the charts in a better way than I could. It's a medley...
@@ -74,13 +74,13 @@ I did not try to re-invent wheels. Although most of the texts are written by mys
 
 ###### The tree
 
-You can either browse the tree freely or click ![browse tree](https://github.com/larsvers/tree-of-charts/blob/master/images/github/browse.png) on the found **chart cards** to find your visual in the tree. Once in there you can browse the tree and see what other charts might tickle your pickle.
+You can either browse the tree freely or click ![browse tree](https://github.com/larsvers/tree-of-charts/blob/master/images/github/tree_of_charts_browse.png) on the found **chart cards** to find your visual in the tree. Once in there you can browse the tree and see what other charts might tickle your pickle.
 
-![tree](https://github.com/larsvers/tree-of-charts/blob/master/images/github/tree.png)
+![tree](https://github.com/larsvers/tree-of-charts/blob/master/images/github/tree_of_charts_tree.png)
 
 The tree is also shape-shifting. It can change hierarchy depending on what conceptual journey you opt for to find your chart. You can for example start thinking about the type of dataset you have (table? network? etc.) and then what type your data is (quantitative, ordinal, categorical). To do so, hit **what data** (a short description of the hierarchy is shown underneath the buttons):
 
-![tree options](https://github.com/larsvers/tree-of-charts/blob/master/images/github/tree-options.png)
+![tree options](https://github.com/larsvers/tree-of-charts/blob/master/images/github/tree_of_charts_options.png)
 
 Or you might come from less techincal and more conceptual ground thinking about why you want to build a chart (what is your main interest? what is the aim of the visual analysis?). There's a tree for that via the **why** button. 
 

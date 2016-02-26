@@ -93,13 +93,13 @@ As said, conceptual credit mainly goes to [Tamara Munzner](https://www.crcpress.
 Here's a short list of papers considering the topic from a number of angles:
 
 * [The Eyes Have It: A Task by Data Type Taxonomy for Information Visualizations](http://www.interactiondesign.us/courses/2011_AD690/PDFs/Shneiderman_1996.pdf) - a taxonomy by data types, by Ben Shneiderman's
-* [A Taxonomy of Visualization Techniques using the Data State Reference Model] (http://www-users.cs.umn.edu/~echi/papers/infovis00/Chi-TaxonomyVisualization.pdf) - a taxonomoy of data transformations by Ed H. Chi
+* [A Taxonomy of Visualization Techniques using the Data State Reference Model](http://www-users.cs.umn.edu/~echi/papers/infovis00/Chi-TaxonomyVisualization.pdf) - a taxonomoy of data transformations by Ed H. Chi
 * [Watch This: A Taxonomy for Dynamic Data Visualization](http://www.cs.ou.edu/~weaver/academic/publications/cottam-2012a/materials/cottam-2012a.pdf) by Joseph A. Cottam et al.
 * [A taxonomy of temporal data visualization techniques](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.122.8704&rep=rep1&type=pdf) by Chaouki Daassi et al.
 * [Taxonomy of Visualization Techniques and Systems – Concerns between Users and Developers are Different](https://www.cs.nmt.edu/~viz/papers/Qin_Chengzhi.pdf) by Qin Chengzhi et al.
-* [Rethinking Visualization: A High-Level Taxonomy](http://webhome.cs.uvic.ca/~mtory/publications/infovis04.pdf) - a taxonomy of based on algorithms by Melanie Tory and Torsten Möller.
+* [Rethinking Visualization: A High-Level Taxonomy](http://webhome.cs.uvic.ca/~mtory/publications/infovis04.pdf) - a taxonomy based on algorithms by Melanie Tory and Torsten Möller.
 
-Similar online projects also allow a fantastic overview. Above all there is the [Datavisualization catalogue](http://www.datavizcatalogue.com/) by [Severino Ribecca](http://www.linkedin.com/pub/severino-ribecca/25/87a/612) and then all the sources from [this gitHub repository](https://github.com/widged/data-for-good/wiki/Visualisation-::-Choosing-a-chart).
+Similar online projects also allow a fantastic overview. Above all there is the [Datavisualization catalogue](http://www.datavizcatalogue.com/) by [Severino Ribecca](http://www.linkedin.com/pub/severino-ribecca/25/87a/612) and then all the sources from [this great gitHub repository](https://github.com/widged/data-for-good/wiki/Visualisation-::-Choosing-a-chart) by [Mariella Lange](http://widged.com/portfolio/).
 
 Coding credit to Mike Bostock for [D3](https://d3js.org/), [jjzieve](https://bl.ocks.org/jjzieve/a743242f46321491a950) and [select2](https://select2.github.io/).
 

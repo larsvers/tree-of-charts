@@ -325,14 +325,14 @@ d3.tsv('data/data.tsv', function(err, data){
 
 	var treeDataNames = [
 	
-		{ prop1: 'across', prop2: 'c', label: 'scale \u00B7 action', id: 'scaleaction', info: 'Number of values the visual can show \u2192 What do we want to find \u2192 What do we want to do' },
-		{ prop1: 'across', prop2: 'b', label: 'action \u00B7 scale \u00B7 type', id: 'actionscaletype', info: 'Key analysis actions \u2192 Chart family \u2192 Number of variables at hands' },
-		{ prop1: 'across', prop2: 'a', label: 'data \u00B7 scale \u00B7 usage', id: 'datascaleusage', info: 'Type of data \u2192 Number of variables at hands \u2192 Main target of interest' },
-		{ prop1: 'within', prop2: 'e', label: 'what type', id: 'whattype', info: '<strong>Chart categories</strong>: Type of visual \u2192 Chart family' },
-		{ prop1: 'within', prop2: 'd', label: 'how', id: 'how', info: '<strong>How are we building the visual</strong>: Marks we use \u2192 Visual channels we use for encoding' },
-		{ prop1: 'within', prop2: 'c', label: 'why', id: 'why', info: '<strong>Why are we building the visual</strong>: Main target of interest \u2192 High level analysis aim \u2192 Specific analysis aim' },
+		{ prop1: 'within', prop2: 'a', label: 'what data', id: 'whatdata', info: '<strong>What data have we got</strong>: Type of dataset \u2192 Type of data' },
 		{ prop1: 'within', prop2: 'b', label: 'what scale', id: 'whatscale', info: '<strong>How much data can we show</strong>: Number of variables \u2192 Number of categories \u2192 Number of values' },
-		{ prop1: 'within', prop2: 'a', label: 'what data', id: 'whatdata', info: '<strong>What data have we got</strong>: Type of dataset \u2192 Type of data' }
+		{ prop1: 'within', prop2: 'c', label: 'why', id: 'why', info: '<strong>Why are we building the visual</strong>: Main target of interest \u2192 High level analysis aim \u2192 Specific analysis aim' },
+		{ prop1: 'within', prop2: 'd', label: 'how', id: 'how', info: '<strong>How are we building the visual</strong>: Marks we use \u2192 Visual channels we use for encoding' },
+		{ prop1: 'within', prop2: 'e', label: 'what type', id: 'whattype', info: '<strong>Chart categories</strong>: Type of visual \u2192 Chart family' },
+		{ prop1: 'across', prop2: 'a', label: 'data \u00B7 scale \u00B7 usage', id: 'datascaleusage', info: 'Type of data \u2192 Number of variables at hands \u2192 Main target of interest' },
+		{ prop1: 'across', prop2: 'b', label: 'action \u00B7 scale \u00B7 type', id: 'actionscaletype', info: 'Key analysis actions \u2192 Chart family \u2192 Number of variables at hands' },
+		{ prop1: 'across', prop2: 'c', label: 'scale \u00B7 action', id: 'scaleaction', info: 'Number of values the visual can show \u2192 What do we want to find \u2192 What do we want to do' }
 		
 	];
 
@@ -367,7 +367,8 @@ d3.tsv('data/data.tsv', function(err, data){
 	
 
 	// set buttons
-	d3.select('div#containerTree').selectAll('.buttons')
+	d3.select('div#infoButtons')
+		.selectAll('.buttons')
 		.data(treeDataNames)
 		.enter()
 		.append('button')
@@ -380,7 +381,7 @@ d3.tsv('data/data.tsv', function(err, data){
 	// needs to be in Object for d3.tree() - - -
 	var dataTree = {};
 	dataTree.key = "Chart tree";
-	
+		
 
 	// initialise state
 	dataTree.children = treeData.within.a; // initial state for tree
@@ -389,7 +390,7 @@ d3.tsv('data/data.tsv', function(err, data){
 
 	var info = treeDataNames[7].info; // set initial state for tree hierarchy info
 
-	d3.select('div.tooltip#treeStructure').html(info); // set initial state for tree hierarchy info
+	d3.select('div#infoText').html(info); // set initial state for tree hierarchy info
 
 	
 	log('dataTree', dataTree);
@@ -431,7 +432,7 @@ d3.tsv('data/data.tsv', function(err, data){
 
 		// info text
 		info = d3.select(this).data()[0].info;
-		d3.select('div.tooltip#treeStructure').html(info);
+		d3.select('div#infoText').html(info);
 
 		// data
 		var self = d3.select(this),
@@ -450,14 +451,14 @@ d3.tsv('data/data.tsv', function(err, data){
 
 		// only show quick info of the respective button during hover. Back to active button after mouseout.
 		var infoPrelim = d3.select(this).data()[0].info;
-		d3.select('div.tooltip#treeStructure').html(infoPrelim);
+		d3.select('div#infoText').html(infoPrelim);
 
 	});
 
 	d3.selectAll('.setTreeStructure').on('mouseout', function() {
 
 		// snap info back to active button
-		d3.select('div.tooltip#treeStructure').html(info);
+		d3.select('div#infoBox').html(info);
 
 	});
 
